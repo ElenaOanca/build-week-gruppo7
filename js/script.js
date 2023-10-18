@@ -237,9 +237,8 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     if (currentQuestionIndex === 0) {
-      const avantiButton = document.createElement("button");
-      avantiButton.innerText = "Avanti";
-      avantiButton.classList.add("risposte");
+      const avantiButton = document.querySelector('prossima-domanda');
+      
       avantiButton.addEventListener("click", function () {
         currentQuestionIndex = Math.floor(Math.random() * questions.length);
         let countObj = {};
