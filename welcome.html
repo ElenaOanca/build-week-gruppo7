@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="it">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,38 +8,133 @@
     <link rel="stylesheet" href="css/reset.css">
     <link rel="stylesheet" href="css/style.css">
 </head>
+
 <body>
-  
+
     <div id="main">
-        
-        <div class="timer"></div>
+
         <img src="assets/images/epicode_logo.png" id="logo"></img>
-        
-        <div id="contenuto-pagina">
-            <div class="h4">Welcome <span>to your exam</span></div>
-            <div class="h5">Instructions</div>
-            <div class="p sottotesto-page-1">We don't expect most engineers to know the answers to all of these questions,
-                so don't worry if you're unsure of a few of them.</div>
-            <div class="lista-istruzioni"> 
-                <ul>
-                    <li>Each question is <span>timed</span> and can only be <span>answered once</span>.</li>
-                    <li>Changing browser tab or opening other windows <span>will invalidate the question</span>.</li>
-                    <li>This exam will take approx. <span>0-5 minutes.</span></li> 
-                </ul>
-            </div>
+        <div class="timer"></div>
 
-            <div class="checkbox-plus-button">
-               
-                <input type="checkbox" id="myCheckbox" name="myCheckbox">
-                <label class="text-checkbox" for="myCheckbox"><span>I promise to answer myself without help from anyone</span></label>  
-                <button class="button-page-1-4">PROCEED</button>
+        <section id="page1">
+            <div id="contenuto-pagina">
+                <div class="h4">Welcome <span>to your exam</span></div>
+                <div class="h5">Instructions</div>
+                <div class="p sottotesto-page-1">We don't expect most engineers to know the answers to all of these
+                    questions,
+                    so don't worry if you're unsure of a few of them.</div>
+                <div class="lista-istruzioni">
+                    <ul>
+                        <li>Each question is <span>timed</span> and can only be <span>answered once</span>.</li>
+                        <li>Changing browser tab or opening other windows <span>will invalidate the question</span>.
+                        </li>
+                        <li>This exam will take approx. <span>0-5 minutes.</span></li>
+                    </ul>
+                </div>
+
+                <div class="checkbox-plus-button">
+
+                    <input type="checkbox" id="myCheckbox" name="myCheckbox">
+                    <label class="text-checkbox" for="myCheckbox"><span>I promise to answer myself without help from
+                            anyone</span></label>
+                    <button class="button-page-1-4 buttonLogica">PROCEED</button>
+
+                </div>
+            </div>
+        </section>
+
+
+
+
+
+
+
+        <section id="page2" class="hidden">
+            <div id="contenuto-pagina-quiz">
+                <div class="h4" , class="titolo">How can I create a <span>checkbox in HTML?</span></div>
+                <div class="domanda">
+
+                    <div> <button class="risposte">input type = 'check'</button></div>
+                    <div> <button class="risposte"> checkbox</button></div>
+                    <div> <button class="risposte">input type ='checkbox'</button></div>
+                    <div> <button class="risposte"> input type ='button'</button></div>
+
+                </div>
+
+                <div id="question-counter">
+
+                    <div class="h6">QUESTION 1 <span class="slash">/ 10</span></div>
+
+                </div>
+                <button class="buttonLogica">PROCEED</button>
 
             </div>
-        </div>
+        </section>
+
+
+
+
+
+        <section id="page3" class="hidden">
+            <div id="contenuto-pagina-risultato">
+                <div class=" results h4"> Results</div>
+                <div class="testo-page-3">The summary of your answers:</div>
+                <div class="risultato-test">
+
+                    <div class="corrette risultato">Correct</div>
+                    <div class="cerchio risultato">
+                        <div class="testi-dentro-cerchio">
+                            <p><span>Congratulations!</span></p>
+                            <p><span>You passed the exam.</span></p>
+                            <p class="testo-certificato">We'll send you the certificate in few minutes. Check your email
+                                (including promotions/spam folder)</p>
+                        </div>
+                    </div>
+                    <div class="errate risultato">Wrong</div>
+
+                </div>
+
+                <div>
+
+                    <button class="rate-us buttonLogica">RATE US</button>
+
+                </div>
+            </div>
+        </section>
+
+
+        <section id="page4"  class="hidden">
+            <div id="contenuto-pagina-4">
+                <div class="h4 come-sta-andando"><span>Tell us how it's going</span></div>
+                <div class="testo-page-4">From 0 to 10, how likely are you to recommend EPICODE to a friend or a
+                    colleague?</div>
+                <form class="form" action="submit">
+                    <div class="stars">
+                        <span class="star">&#9733;</span>
+                        <span class="star">&#9733;</span>
+                        <span class="star">&#9733;</span>
+                        <span class="star">&#9733;</span>
+                        <span class="star">&#9733;</span>
+                        <span class="star">&#9733;</span>
+                        <span class="star">&#9733;</span>
+                        <span class="star">&#9733;</span>
+                        <span class="star">&#9733;</span>
+                        <span class="star">&#9733;</span>
+                    </div>
+                    <label class="text-label" for="comment">Leave us an open feedback about your experience so
+                        far</label>
+                    <input class="input-text-label" type="text" name="comment" placeholder="Write your comment here">
+                    <button class="button-page-1-4 more-info buttonLogica">MORE INFO</button>
+                </form>
+
+
+            </div>
+        </section>
     </div>
 
 
 
-<script src="js/script.js"></script>
+    <script src="js/script.js"></script>
 </body>
+
 </html>

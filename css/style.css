@@ -4,7 +4,7 @@
 :root {
     --colore-h5: #D20094;
     font-family: 'Inter', sans-serif;
-    
+    box-sizing: border-box;
   }
 
 
@@ -22,7 +22,6 @@
    
 
 }
-
 
 #logo{
 
@@ -225,7 +224,6 @@ li {
 
 
 .h6{
-    margin-top: 200px;
     font-family: 'Outfit', sans-serif;
     font-weight: 300;
     font-size: 1.2rem;
@@ -240,12 +238,7 @@ li {
 
 
 
-#contenuto-pagina-risultato {
-    display: flex; 
-    align-items: center; 
-    justify-content: center;
-    flex-direction: column;
-}
+
 
 div > .results{
     font-weight: 600;
@@ -269,18 +262,18 @@ div > .results{
     display: flex;
     flex-direction: row;
     flex-wrap: nowrap;
-    justify-content: space-between;
     align-items: center;
     width: 1200px ;
     margin-top: 50px;
     margin-bottom: 30px;
+    text-align: center;
 }
-.cerchio-risultato {
+.cerchio{
     border: 60px solid;
     border-right-color: #C2128D;
     border-radius: 50%;
     height: 300px;
-    width: 300px;
+    width: 40%;
     text-align: center;
     padding: 30px;
     margin-left: 60px;
@@ -301,18 +294,18 @@ div > .results{
 
 }
 
-.corrette-risultato{
+.corrette{
 
     font-size: 3rem;
     font-family: 'Outfit', sans-serif;
-
+    width: 30%;
 }
 
-.errate-risultato{
+.errate{
 
     font-size: 3rem;
     font-family: 'Outfit', sans-serif;
-
+    width: 30%;
 }
 
 .rate-us {
@@ -322,11 +315,9 @@ div > .results{
     margin-top: 20px;
     width: 300px;
     height: 90px;
+    text-align: center;
     background: transparent;
     border: 2px solid #fff;
-    display: flex;
-    justify-content: center;
-    align-items: center;
     cursor: pointer;
     background: #0c060a28;
 }
@@ -424,3 +415,9 @@ div > .results{
  }
     
 
+
+
+
+ .hidden , .hiddenTimer{
+    display: none;
+ }
