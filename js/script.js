@@ -21,7 +21,7 @@ document.addEventListener("DOMContentLoaded", function() {
      });
    });
    
-// FUNZIONE TIMER /////////////////////////
+/* FUNZIONE TIMER /////////////////////////
 
 let timer = document.querySelector(".timer")
     timer.innerHTML= 60
@@ -34,8 +34,8 @@ let timer = document.querySelector(".timer")
         clearInterval(interval);
 
       }
-    }, 1000);
-
+    }, 1000); 
+*/
 
 // STELLE //////////////////
 
