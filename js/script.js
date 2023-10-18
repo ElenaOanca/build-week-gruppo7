@@ -276,24 +276,33 @@ document.addEventListener("DOMContentLoaded", function () {
       avantiButton.innerText = "Avanti";
       avantiButton.classList.add("risposte");
       avantiButton.addEventListener("click", function () {
-        currentQuestionIndex = Math.floor(Math.random() * questions.length);
-        let countObj = {};
-        countAnswer.push(countObj);
-        console.log(countAnswer);
-        mostraDomandaCorrente();
-      });
+
+        if (countAnswer.length === 10){
+          window.location.assign("risultato.html");
+        }else{
+
+          currentQuestionIndex = Math.floor(Math.random() * questions.length);
+          let countObj = {};
+          countAnswer.push(countObj);
+          console.log(countAnswer);
+          mostraDomandaCorrente();
+        }
+        });
       pagina.appendChild(avantiButton);
     } else if (currentQuestionIndex){ //< questions.length - 1) {
       const avantiButton = document.createElement("button");
       avantiButton.innerText = "Avanti";
       avantiButton.classList.add("risposte");
+      if (countAnswer.length === 10){
+        window.location.assign("risultato.html");
+      }else{
       avantiButton.addEventListener("click", function () {
         currentQuestionIndex = Math.floor(Math.random() * questions.length);
         let countObj = {};
         countAnswer.push(countObj);
         console.log(countAnswer);
         mostraDomandaCorrente();
-      });
+      });}
       pagina.appendChild(avantiButton);
     }
   }
