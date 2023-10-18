@@ -7,6 +7,7 @@
     <title>Benchmark - Epicode</title>
     <link rel="stylesheet" href="css/reset.css">
     <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha512-1ycn6IcaQQ40/MKBW2W4Rhis/DbILU74C1vSrLJxCq57o941Ym01SwNsOMqvEBFlcgUa6xLiPY/NS5R+E6ztJQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 
 <body>
@@ -14,11 +15,10 @@
     <div id="main">
 
         <img src="assets/images/epicode_logo.png" id="logo"></img>
-        <div class="timer"></div>
 
         <section id="page1">
             <div id="contenuto-pagina">
-                <div class="h4">Welcome <span>to your exam</span></div>
+                <div class="h4 welcome">Welcome <span>to your exam</span></div>
                 <div class="h5">Instructions</div>
                 <div class="p sottotesto-page-1">We don't expect most engineers to know the answers to all of these
                     questions,
@@ -52,6 +52,7 @@
 
 
         <section id="page2" class="hidden">
+            <div class="timer"></div>
             <div id="contenuto-pagina-quiz">
 
                 <div class="h4 titolo" id="domanda">
@@ -63,11 +64,18 @@
 
                 </div>
 
-                <div id="question-counter">
+                <div class="button-plus-counter">
 
-                    <div class="h6">QUESTION 1 <span class="slash">/ 10</span></div>
+                    <button class="buttonLogica prossima-domanda">PROSSIMA <span><i class="fas fa-arrow-right"></i></span>
+                    </button>
+
+                    <div id="question-counter">
+
+                        <div class="h6">QUESTION 1 <span class="slash">/ 10</span></div>
 
                 </div>
+                <button class="buttonLogica">PROCEED</button>
+
             </div>
         </section>
 
@@ -114,17 +122,18 @@
                     colleague?</div>
                 <form class="form" action="submit">
                     <div class="stars">
-                        <span class="star">&#9733;</span>
-                        <span class="star">&#9733;</span>
-                        <span class="star">&#9733;</span>
-                        <span class="star">&#9733;</span>
-                        <span class="star">&#9733;</span>
-                        <span class="star">&#9733;</span>
-                        <span class="star">&#9733;</span>
-                        <span class="star">&#9733;</span>
-                        <span class="star">&#9733;</span>
-                        <span class="star">&#9733;</span>
-                    </div>
+                        <span class="star" data-stars="1">&#9733;</span>
+                        <span class="star" data-stars="2">&#9733;</span>
+                        <span class="star" data-stars="3">&#9733;</span>
+                        <span class="star" data-stars="4">&#9733;</span>
+                        <span class="star" data-stars="5">&#9733;</span>
+                        <span class="star" data-stars="6">&#9733;</span>
+                        <span class="star" data-stars="7">&#9733;</span>
+                        <span class="star" data-stars="8">&#9733;</span>
+                        <span class="star" data-stars="9">&#9733;</span>
+                        <span class="star" data-stars="10">&#9733;</span>
+                      </div>
+                      
                     <label class="text-label" for="comment">Leave us an open feedback about your experience so
                         far</label>
                     <input class="input-text-label" type="text" name="comment" placeholder="Write your comment here">
