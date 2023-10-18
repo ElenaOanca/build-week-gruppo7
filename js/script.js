@@ -86,7 +86,7 @@ let timer = document.querySelector(".timer")
   // Inizializza le stelle vuote all'avvio
   resetStars();
 
-/*
+
 // controllo se l'input e validato 
 // function controlloCheckbox(){
   
@@ -312,4 +312,4 @@ document.addEventListener("DOMContentLoaded", function () {
 
     pagina.appendChild(divRisposte);
   }
-});*/
+});
