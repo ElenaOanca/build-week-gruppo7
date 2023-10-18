@@ -1,0 +1,426 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Outfit:wght@300;400;500;600;700&display=swap');
+
+
+:root {
+    --colore-h5: #D20094;
+    font-family: 'Inter', sans-serif;
+    
+  }
+
+
+/************* PAGINA WELCOME **************/
+
+
+#main{
+
+    width: 0 auto;
+    height: 100vh;
+    background-image: url(../assets/images/bg.jpg);
+    background-size: cover;
+    color: white;
+    padding: 35px 80px 80px 80px;
+   
+
+}
+
+
+#logo{
+
+    width: 200px;
+    height: auto;
+    margin-bottom: 60px;
+   
+
+}
+
+.h4, .h5{
+
+    font-family: 'Outfit', sans-serif;
+
+}
+.h4{
+
+    font-size: 6rem;
+    max-width: 600px;
+    font-weight:300;
+    line-height: 0.8;
+    margin-bottom: 50px;
+
+}
+
+span{
+
+    font-weight: 600;
+
+}
+
+.h5{
+
+    
+    color:var(--colore-h5);
+    font-weight: 600;
+    font-size: 1.7rem;
+    margin-bottom: 10px;
+    
+}
+
+.p{
+
+   margin-bottom: 40px;
+   font-weight: 500;
+   max-width: 550px;
+
+
+}
+
+
+ul{
+    margin-top: 50px;
+}
+
+li {
+    line-height: 1.8;
+    margin-left: 25px;
+    font-weight: 300;
+
+}
+
+ #myCheckbox{
+
+    appearance: none;
+    border: 2px solid white;
+    height: 1.2rem;
+    width: 1.2rem;
+    cursor: pointer;
+    
+    
+}
+
+#myCheckbox:checked {
+    background-color:#0c060a;
+}
+
+.button-page-1-4 {
+    background-color: #00ffff;
+    color: #0B113A;
+    border: none;
+    width: 200px;
+    height: 60px;
+    margin-left: 400px;
+    box-shadow: 0 0 1cm rgba(0, 255, 255, 0.8);
+    border-color: black ;
+    font-family: 'Outfit', sans-serif;
+    font-size: 1.3rem;
+    font-weight: 700;
+    cursor: pointer;
+
+  
+}
+
+.timer {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    background-color: wheat;
+    padding: 10px;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    margin-right: 15px;
+    margin-top: 15px;
+    background: none;
+    border: 5px solid black;
+}
+
+.checkbox-plus-button{
+
+    margin-top: 50px;
+    display: inline-block;
+
+}
+
+
+/***************** PAGINA QUIZ *****************/
+
+#contenuto-pagina-quiz{
+
+
+    display: flex; 
+    align-items: center; 
+    justify-content: center;
+    flex-direction: column;
+    
+
+}
+
+#contenuto-pagina-quiz > .h4{
+
+    font-size: 4rem;
+    line-height: 1.1;
+
+}
+
+.domanda {
+    max-width: 900px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    align-items: center;
+    gap: 10px;
+    padding: 20px;
+}
+
+
+.risposte {
+   background: linear-gradient(#252A4F, #45195c8b) padding-box,
+               linear-gradient(180deg, rgba(255, 255, 255, 0.534), #b3028a51) border-box;
+    color: white;
+    padding: 20px 70px; 
+    border: 3px solid transparent;
+    border-radius: 40px;
+    width: 350px;
+    height: 65px;
+    border-radius: 30px;
+    cursor: pointer;
+    position: relative;
+    font-family: 'Inter', sans-serif;
+    font-size: 1.1rem;
+    font-weight: 600;
+    
+
+}
+
+/*.risposte::before {
+    
+    
+    top: -15px; 
+    left: -30px; 
+    right: -30px; 
+    bottom: 0; /
+    background: linear-gradient(to right, white, white, transparent);
+    z-index: -3;
+}
+*/
+
+
+.slash{
+
+    color: #B51389;
+
+}
+
+
+.risposte:nth-child(odd) {
+    margin-right: 5px;
+}
+
+.risposte:nth-child(even) {
+    margin-left: 5px;
+}
+
+#contenuto-pagina-quiz{
+    box-sizing: border-box;
+    text-align: center;
+}
+
+
+.h6{
+    margin-top: 200px;
+    font-family: 'Outfit', sans-serif;
+    font-weight: 300;
+    font-size: 1.2rem;
+    letter-spacing: 2px;
+    
+}
+
+
+
+
+/************ PAGINA RISULTATO ****************/
+
+
+
+#contenuto-pagina-risultato {
+    display: flex; 
+    align-items: center; 
+    justify-content: center;
+    flex-direction: column;
+}
+
+div > .results{
+    font-weight: 600;
+    font-size: 4rem;
+    margin-bottom: 15px;
+    margin-left: 20px;
+    
+}
+
+.testo-page-3{
+
+    font-weight: 300;
+    font-size: 1.6rem;
+    font-family: 'Outfit', sans-serif;
+    margin-left: 15px;
+
+
+}
+
+.risultato-test{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    align-items: center;
+    width: 1200px ;
+    margin-top: 50px;
+    margin-bottom: 30px;
+}
+.cerchio-risultato {
+    border: 60px solid;
+    border-right-color: #C2128D;
+    border-radius: 50%;
+    height: 300px;
+    width: 300px;
+    text-align: center;
+    padding: 30px;
+    margin-left: 60px;
+    margin-right: 60px;
+}
+
+.testi-dentro-cerchio{
+
+    margin-top: 70px;
+    line-height: 1.5;
+
+}
+
+.testo-certificato{
+
+    margin-top: 30px;
+
+
+}
+
+.corrette-risultato{
+
+    font-size: 3rem;
+    font-family: 'Outfit', sans-serif;
+
+}
+
+.errate-risultato{
+
+    font-size: 3rem;
+    font-family: 'Outfit', sans-serif;
+
+}
+
+.rate-us {
+    color: white;
+    font-weight: 600;
+    font-size: 1.4rem;
+    margin-top: 20px;
+    width: 300px;
+    height: 90px;
+    background: transparent;
+    border: 2px solid #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    background: #0c060a28;
+}
+
+
+/***************** PAGINA FEEDBACK **************/
+
+#contenuto-pagina-4{
+
+
+    display: flex; 
+    align-items: center; 
+    justify-content: center;
+    flex-direction: column;
+    
+
+}
+
+.come-sta-andando{
+
+   max-width: 900px;
+   font-size: 3.5rem;
+
+}
+
+.testo-page-4{
+
+    font-weight: 300;
+    font-size: 1.6rem;
+    font-family: 'Outfit', sans-serif;
+    margin-left: 15px;
+    max-width: 650px;
+    text-align: center;
+    margin-bottom: 30px;
+
+}
+
+.stars{
+
+    text-align: center;
+    margin-bottom: 60px;
+
+}
+
+.star {
+    font-size: 50px;
+    cursor: pointer;
+    color: rgba(0, 0, 0, 0.367);
+    
+  }
+
+  .star:hover, .star.active {
+    color: white ;
+  }
+
+  .form{
+
+    font-weight: 300;
+    font-size: 1.6rem;
+    font-family: 'Outfit', sans-serif;
+    margin-left: 15px;
+    max-width: 650px;
+    margin-bottom: 30px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+  }
+
+.text-label{
+
+    margin-bottom: 50px;
+
+}
+
+.input-text-label{
+
+
+    background: none;
+    height: 50px;
+    width: 700px;
+    border: none;
+    border-bottom: 2px solid #C2128D;
+    color: white;
+    padding-left: 30px;
+
+
+}
+
+ form > .button-page-1-4{
+
+    margin-left: 0;
+    margin-top: 50px;
+
+ }
+    
+
