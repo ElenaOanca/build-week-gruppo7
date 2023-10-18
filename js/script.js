@@ -86,46 +86,7 @@ let timer = document.querySelector(".timer")
   // Inizializza le stelle vuote all'avvio
   resetStars();
 
-
-
-
-
-
-
-
-
-
-
-  ////////////////// NAVIGAZIONE SUL SITO
-
-  /* if (procediButton) {
-    procediButton.addEventListener("click", function() {
-      // Verifica su quale pagina ci troviamo
-      if (window.location.pathname === "/welcome.html") {
-        // Se ci troviamo sulla pagina welcome.html, cambia il contenuto della pagina alla pagina quiz.html
-        cambiaContenuto("quiz.html");
-      } else if (window.location.pathname === "/quiz.html") {
-        // Se ci troviamo sulla pagina quiz.html, esegui la funzione "test" e reindirizza alla pagina risultato.html
-        test();
-        cambiaContenuto("risultato.html");
-      } else if (window.location.pathname === "/risultato.html") {
-        // Se ci troviamo sulla pagina risultato.html, torna alla pagina home
-        cambiaContenuto("welcome.html");
-      }
-    });
-  }
-
-  // Funzione per cambiare il contenuto della pagina
-  function cambiaContenuto(nuovaPagina) {
-    window.location.href = nuovaPagina;
-  }
-*/
-  // Funzione per eseguire il test 
-  function test() {
-    // Esegui il test qui
-  }
-;
-
+/*
 // controllo se l'input e validato 
 function controlloCheckbox(){
   
@@ -144,3 +105,14 @@ function controlloCheckbox(){
     });
   } 
 }
+*/
+
+function riempiemento (x, y, xColor, yColor){
+  const cerchio = document.querySelector("cerchio");
+
+  cerchio.style.border = `${percent1_percentage}% solid ${color1}`;
+  cerchio.style.borderColor += `, ${percent2_percentage}% solid ${color2}`;
+ 
+}
+
+riempiemento(75,25,"#00ffff","#c2128d")
