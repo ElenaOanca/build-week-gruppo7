@@ -253,7 +253,7 @@ const questions = [
 
 
 let currentQuestionIndex = Math.floor(Math.random() * questions.length); // Indice della domanda corrente
-
+const countAnswer = [];
 document.addEventListener("DOMContentLoaded", function () {
   const pagina = document.getElementById("domanda");
   //const risposte = document.getElementById("risposte");
@@ -277,6 +277,9 @@ document.addEventListener("DOMContentLoaded", function () {
       avantiButton.classList.add("risposte");
       avantiButton.addEventListener("click", function () {
         currentQuestionIndex = Math.floor(Math.random() * questions.length);
+        let countObj = {};
+        countAnswer.push(countObj);
+        console.log(countAnswer);
         mostraDomandaCorrente();
       });
       pagina.appendChild(avantiButton);
@@ -286,6 +289,9 @@ document.addEventListener("DOMContentLoaded", function () {
       avantiButton.classList.add("risposte");
       avantiButton.addEventListener("click", function () {
         currentQuestionIndex = Math.floor(Math.random() * questions.length);
+        let countObj = {};
+        countAnswer.push(countObj);
+        console.log(countAnswer);
         mostraDomandaCorrente();
       });
       pagina.appendChild(avantiButton);
