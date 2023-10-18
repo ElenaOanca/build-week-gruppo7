@@ -14,7 +14,6 @@
 
 #main{
 
-    width: 0 auto;
     height: 100vh;
     background-image: url(../assets/images/bg.jpg);
     background-size: cover;
@@ -444,7 +443,7 @@ div > .results{
     margin-bottom: 30px;
     text-align: center;
 }
-.cerchio{
+.concentric-circle{
     border: 60px solid;
     border-right-color: #C2128D;
     border-radius: 50%;
