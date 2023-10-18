@@ -252,7 +252,7 @@ const questions = [
 ];
 
 
-let currentQuestionIndex = 0; // Indice della domanda corrente
+let currentQuestionIndex = Math.floor(Math.random() * questions.length); // Indice della domanda corrente
 
 document.addEventListener("DOMContentLoaded", function () {
   const pagina = document.getElementById("domanda");
@@ -274,18 +274,18 @@ document.addEventListener("DOMContentLoaded", function () {
     if (currentQuestionIndex === 0) {
       const avantiButton = document.createElement("button");
       avantiButton.innerText = "Avanti";
-      avantiButton = document.getElementsByClassName("risposte");
+      avantiButton.classList.add("risposte");
       avantiButton.addEventListener("click", function () {
-        currentQuestionIndex++;
+        currentQuestionIndex = Math.floor(Math.random() * questions.length);
         mostraDomandaCorrente();
       });
       pagina.appendChild(avantiButton);
-    } else if (currentQuestionIndex < questions.length - 1) {
+    } else if (currentQuestionIndex){ //< questions.length - 1) {
       const avantiButton = document.createElement("button");
       avantiButton.innerText = "Avanti";
-      avantiButton = document.getElementsByClassName("risposte");
+      avantiButton.classList.add("risposte");
       avantiButton.addEventListener("click", function () {
-        currentQuestionIndex++;
+        currentQuestionIndex = Math.floor(Math.random() * questions.length);
         mostraDomandaCorrente();
       });
       pagina.appendChild(avantiButton);
@@ -295,10 +295,12 @@ document.addEventListener("DOMContentLoaded", function () {
   function mostraBottoniRisposte(questNumber) {
     const divRisposte = document.createElement("div");
     const risposte = [questions[questNumber].correct_answer, ...questions[questNumber].incorrect_answers];
-    
+    risposte.sort(() => Math.random() - 0.5);
+
     for (let risposta of risposte) {
       const button = document.createElement("button");
       button.innerText = risposta;
+      button.classList.add("risposte");
       divRisposte.appendChild(button);
     }
 
@@ -308,7 +310,9 @@ document.addEventListener("DOMContentLoaded", function () {
   function mostraBottoniVeroFalso(questNumber) {
     const divRisposte = document.createElement("div");
     const button1 = document.createElement("button");
+    button1.classList.add("risposte");
     const button2 = document.createElement("button");
+    button2.classList.add("risposte");
     
     button1.innerText = "True";
     button2.innerText = "False";
