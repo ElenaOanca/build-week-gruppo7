@@ -15,7 +15,6 @@
     <div id="main">
 
         <img src="assets/images/epicode_logo.png" id="logo"></img>
-        <div class="timer"></div>
 
         <section id="page1">
             <div id="contenuto-pagina">
@@ -53,22 +52,30 @@
 
 
         <section id="page2" class="hidden">
+            <div class="timer"></div>
             <div id="contenuto-pagina-quiz">
-            
-                <div class="h4 titolo" id="domanda"> 
-                    
+
+                <div class="h4 titolo" id="domanda">
+
                     <!-- <div> <button class="risposte">input type = 'check'</button></div>
                     <div> <button class="risposte"> checkbox</button></div>
                     <div> <button class="risposte">input type ='checkbox'</button></div>
                     <div> <button class="risposte"> input type ='button'</button></div> -->
-                    
+
                 </div>
-    
-                <div id="question-counter">
-    
-                    <div class="h6">QUESTION 1 <span class="slash">/ 10</span></div>
-    
+
+                <div class="button-plus-counter">
+
+                    <button class="buttonLogica prossima-domanda">PROSSIMA <span><i class="fas fa-arrow-right"></i></span>
+                    </button>
+
+                    <div id="question-counter">
+
+                        <div class="h6">QUESTION 1 <span class="slash">/ 10</span></div>
+
                 </div>
+            
+
             </div>
         </section>
 
@@ -78,18 +85,22 @@
 
         <section id="page3" class="hidden">
             <div id="contenuto-pagina-risultato">
-                <div class=" results h4"> Results</div>
+                <div class="results h4"> Results</div>
                 <div class="testo-page-3">The summary of your answers:</div>
                 <div class="risultato-test">
 
                     <div class="corrette risultato">Correct</div>
-                    <div class="cerchio risultato">
+                    <div class="cerchio-container">
+                        <div class="circle">
+                        </div>
+                        <div class="concentric-circle">
                         <div class="testi-dentro-cerchio">
                             <p><span>Congratulations!</span></p>
                             <p><span>You passed the exam.</span></p>
                             <p class="testo-certificato">We'll send you the certificate in few minutes. Check your email
                                 (including promotions/spam folder)</p>
                         </div>
+    
                     </div>
                     <div class="errate risultato">Wrong</div>
 
@@ -104,7 +115,7 @@
         </section>
 
 
-        <section id="page4"  class="hidden">
+        <section id="page4" class="hidden">
             <div id="contenuto-pagina-4">
                 <div class="h4 come-sta-andando"><span>Tell us how it's going</span></div>
                 <div class="testo-page-4">From 0 to 10, how likely are you to recommend EPICODE to a friend or a
@@ -139,7 +150,7 @@
     <script src="js/script.js"></script>
     <script src="https:////cdnjs.cloudflare.com/ajax/libs/d3/3.5.16/d3.min.js"></script>
     <script src="js/timer.js"></script>
-   
+
 </body>
 
 </html>

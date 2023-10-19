@@ -20,25 +20,6 @@ document.addEventListener("DOMContentLoaded", function() {
        });
      });
    });
-   
-/* FUNZIONE TIMER /////////////////////////
-
-let timer = document.querySelector(".timer")
-    timer.innerHTML= 60
-
-    const interval = setInterval(() => {
-      console.log(timer.innerHTML);
-      timer.innerHTML--;
-
-      if (timer.innerHTML <= 0 ) {
-        clearInterval(interval);
-
-      }
-    }, 1000); 
-*/
-
-// STELLE //////////////////
-
 
     // Recupera le stelle e l'elemento del valore di valutazione
   const stars = document.querySelectorAll(".star");
