@@ -433,7 +433,7 @@ proceedButton.addEventListener("click", function () {
   }
 });
 
-
+/*
 
 function checkQuizCompletion() {//-------------da completare con matias----------
   if (quizCompleted) {
@@ -463,3 +463,4 @@ rateUsButton.addEventListener("click", function() {
   // Mostra la "page4" rimuovendo la classe "hidden"
   page4.classList.remove("hidden");
 });
+*/
