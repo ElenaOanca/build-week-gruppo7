@@ -679,3 +679,85 @@ return function(t) {
 };
 }
  }
+
+
+
+
+
+
+
+ //-------------------------funzione che salvi le risposte in array ------------------------------------------
+ function createAnswerArrays(questions) {
+  const correct = [];
+  const incorrect = [];
+
+ 
+  questions.forEach((question) => {
+    correct.push(question.correct_answer);
+    incorrect.push(...question.incorrect_answers);
+  });
+
+  return { correct, incorrect };
+}
+
+// Utilizzo della funzione
+const { correct, incorrect } = createAnswerArrays(questions);
+
+console.log("Array delle risposte corrette (correct):", correct);
+console.log("Array delle risposte errate (incorrect):", incorrect);
+
+
+//-------
+const risposteQuizCorrette = [];
+const risposteQuizErrate = [];
+
+function salvaRisposta(rispostaData, domandaCorrente) {
+  if (domandaCorrente.type === "multiple") {
+    // Se la domanda è a risposta multipla
+    if (rispostaData === domandaCorrente.correct_answer) {
+      // La risposta data è corretta
+      risposteQuizCorrette.push(rispostaData);
+    } else {
+      // La risposta data è errata
+      risposteQuizErrate.push(rispostaData);
+    }
+  } else if (domandaCorrente.type === "boolean") {
+    // Se la domanda è a risposta vero/falso
+    const rispostaCorretta = domandaCorrente.correct_answer === "True";
+    if (
+      (rispostaData === "True" && rispostaCorretta) ||
+      (rispostaData === "False" && !rispostaCorretta)
+    ) {
+      // La risposta data è corretta
+      risposteQuizCorrette.push(rispostaData);
+    } else {
+      // La risposta data è errata
+      risposteQuizErrate.push(rispostaData);
+    }
+  }
+}
+
+
+
+
+//-----------
+function calcolaPercentualeRisposteCorrette() {
+  const totaleRisposte = risposteQuizCorrette.length + risposteQuizErrate.length;
+  if (totaleRisposte === 0) {
+    return "Nessuna risposta data";
+  }
+
+  const percentualeCorrette = (risposteQuizCorrette.length / totaleRisposte) * 100;
+  const percentualeErrate = (risposteQuizErrate.length / totaleRisposte) * 100;
+
+  return {
+    percentualeCorrette: percentualeCorrette.toFixed(2) + "%",
+    percentualeErrate: percentualeErrate.toFixed(2) + "%",
+  };
+}
+
+
+const risultato = calcolaPercentualeRisposteCorrette();
+console.log("Percentuale risposte corrette:", risultato.percentualeCorrette);
+console.log("Percentuale risposte errate:", risultato.percentualeErrate);
+
