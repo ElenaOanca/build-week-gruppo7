@@ -4,7 +4,8 @@
 :root {
     --colore-h5: #D20094;
     font-family: 'Inter', sans-serif;
-    
+    box-sizing: border-box;
+   
   }
 
 
@@ -13,7 +14,6 @@
 
 #main{
 
-    width: 0 auto;
     height: 100vh;
     background-image: url(../assets/images/bg.jpg);
     background-size: cover;
@@ -22,7 +22,6 @@
    
 
 }
-
 
 #logo{
 
@@ -41,9 +40,15 @@
 .h4{
 
     font-size: 6rem;
-    max-width: 600px;
+    max-width: 60%;
     font-weight:300;
     line-height: 0.8;
+    margin-bottom: 40px;
+
+}
+
+.welcome{
+
     margin-bottom: 50px;
 
 }
@@ -85,19 +90,73 @@ li {
 
 }
 
- #myCheckbox{
 
-    appearance: none;
-    border: 2px solid white;
-    height: 1.2rem;
-    width: 1.2rem;
+.container {
+
+    position: relative;
+    padding-left: 35px;
+    margin-bottom: 12px;
     cursor: pointer;
-    
+    font-size: 22px;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+  
+  .container input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    height: 0;
+    width: 0;
+}
+  
+
+  .checkmark {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 20px;
+    width: 20px;
+    background-color: #eeeeee00;
+    border: 3px solid white;
     
 }
+  
 
-#myCheckbox:checked {
-    background-color:#0c060a;
+  .container:hover input ~ .checkmark {
+    background-color: #cccccc69;
+}
+  
+
+  .container input:checked ~ .checkmark {
+    background-color: #2195f300;
+}
+  
+
+  .checkmark:after {
+    content: "";
+    position: absolute;
+    display: none;
+}
+  
+
+  .container input:checked ~ .checkmark:after {
+    display: block;
+}
+  
+
+  .container .checkmark:after {
+    left: 6px;
+    top: 2px;
+    width: 5px;
+    height: 10px;
+    border: solid white;
+    border-width: 0 3px 3px 0;
+    -webkit-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+    transform: rotate(45deg);
 }
 
 .button-page-1-4 {
@@ -117,20 +176,88 @@ li {
   
 }
 
-.timer {
+/* .timer {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
     position: absolute;
     top: 20px;
     right: 20px;
-    background-color: wheat;
+    background-color: none;
+    border: 18px solid blue;
     padding: 10px;
     border-radius: 50%;
-    width: 40px;
-    height: 40px;
+    width: 80px;
+    height: 80px;
     margin-right: 15px;
     margin-top: 15px;
-    background: none;
-    border: 5px solid black;
+    font-family: 'Outfit', sans-serif;
+    font-weight: 700;
+    font-size: 3rem;
+    
 }
+*/
+
+
+.timer {
+    
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    align-items: center;
+    top: 20px;
+    right: 20px;
+    margin-bottom: -60px;
+
+}
+
+.path--background {
+  fill: rgb(34, 213, 201);
+  stroke: #fff;
+  stroke-width: 0px;
+}
+
+.pulse {
+  fill: rgb(255, 74, 74) !important;
+}
+
+.path--foreground {
+  fill: #eee;
+  stroke: #eee;
+  stroke-width: 2px;
+}
+
+.label {
+  font: 60px "Outfit";
+  font-weight: 700;
+  text-anchor: middle;
+  fill: rgb(34, 213, 201);
+}
+  
+  .path--background {
+    fill: #65276D;
+    stroke: #fff;
+    stroke-width: 0px;
+    
+  }
+  
+  .pulse {
+    fill: rgb(255, 74, 74) !important;
+  }
+  
+  .path--foreground {
+    fill: #eee;
+    stroke: #eee;
+    stroke-width: 2px;
+  }
+  
+  .label {
+    font: 60px "Outfit";
+    font-weight: 900;
+    text-anchor: middle;
+    fill: white;
+  }
 
 .checkbox-plus-button{
 
@@ -225,7 +352,6 @@ li {
 
 
 .h6{
-    margin-top: 200px;
     font-family: 'Outfit', sans-serif;
     font-weight: 300;
     font-size: 1.2rem;
@@ -234,18 +360,60 @@ li {
 }
 
 
+.button-plus-counter{
+
+    display: flex;
+    flex-direction: row-reverse;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    min-width: 500px;
+    margin-top: 50px;
+
+
+}
+
+#question-counter{
+
+
+    margin-top: 30px;
+
+}
+
+.prossima-domanda{
+
+    color: white;
+    font-weight: 600;
+    font-size: 1.7rem;
+    margin-top: 20px;
+    width: 300px;
+    height: 80px;
+    text-align: center;
+    border: 2px solid #fff;
+    cursor: pointer;
+    background: #0c060a28;
+   
+
+}
+
+.fas{
+
+    margin-left: 5px;
+
+}
 
 
 /************ PAGINA RISULTATO ****************/
 
 
+.contenuto-pagina-risultato{
 
-#contenuto-pagina-risultato {
-    display: flex; 
-    align-items: center; 
-    justify-content: center;
+    display: flex;
     flex-direction: column;
+    align-items: center;
+
 }
+
 
 div > .results{
     font-weight: 600;
@@ -269,18 +437,18 @@ div > .results{
     display: flex;
     flex-direction: row;
     flex-wrap: nowrap;
-    justify-content: space-between;
     align-items: center;
     width: 1200px ;
     margin-top: 50px;
     margin-bottom: 30px;
+    text-align: center;
 }
-.cerchio-risultato {
+.concentric-circle{
     border: 60px solid;
     border-right-color: #C2128D;
     border-radius: 50%;
     height: 300px;
-    width: 300px;
+    width: 40%;
     text-align: center;
     padding: 30px;
     margin-left: 60px;
@@ -301,18 +469,18 @@ div > .results{
 
 }
 
-.corrette-risultato{
+.corrette{
 
     font-size: 3rem;
     font-family: 'Outfit', sans-serif;
-
+    width: 30%;
 }
 
-.errate-risultato{
+.errate{
 
     font-size: 3rem;
     font-family: 'Outfit', sans-serif;
-
+    width: 30%;
 }
 
 .rate-us {
@@ -321,12 +489,9 @@ div > .results{
     font-size: 1.4rem;
     margin-top: 20px;
     width: 300px;
-    height: 90px;
-    background: transparent;
+    height: 80px;
+    text-align: center;
     border: 2px solid #fff;
-    display: flex;
-    justify-content: center;
-    align-items: center;
     cursor: pointer;
     background: #0c060a28;
 }
@@ -371,15 +536,16 @@ div > .results{
 
 }
 
+
 .star {
-    font-size: 50px;
+    font-size: 60px;
     cursor: pointer;
     color: rgba(0, 0, 0, 0.367);
     
   }
 
   .star:hover, .star.active {
-    color: white ;
+    color: #04FFFF ;
   }
 
   .form{
@@ -424,3 +590,9 @@ div > .results{
  }
     
 
+
+
+
+ .hidden , .hiddenTimer{
+    display: none;
+ }
