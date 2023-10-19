@@ -270,8 +270,8 @@ function mostraDomandaCorrente() {
      }else{
 
           currentQuestionIndex = Math.floor(Math.random() * questions.length);
-          //let countObj = {};
-          //countAnswer.push(countObj);
+          let countObj = {};
+          countAnswer.push(countObj);
           //console.log(countAnswer);
           mostraDomandaCorrente();
         }
@@ -286,14 +286,14 @@ function mostraDomandaCorrente() {
       avantiButton.appendChild(spanButton);
       divQuestion.appendChild(avantiButton)
       if (countAnswer.length === 10){
-        button.addEventListener("click", function() {
+        avantiButton.addEventListener("click", function() {
           showPage(index + 2); // Passa all'indice successivo (inizia da 2)
         });
       }else{
       avantiButton.addEventListener("click", function () {
         currentQuestionIndex = Math.floor(Math.random() * questions.length);
-        //let countObj = {};
-        //countAnswer.push(countObj);
+        let countObj = {};
+        countAnswer.push(countObj);
         
         mostraDomandaCorrente();
       });}
