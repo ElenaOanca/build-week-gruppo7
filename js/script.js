@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 document.addEventListener("DOMContentLoaded", function() {
      const sections = document.querySelectorAll("section"); // Seleziona tutte le sezioni
      // Funzione per nascondere tutte le sezioni tranne quella con l'indice specificato
@@ -20,6 +21,13 @@ document.addEventListener("DOMContentLoaded", function() {
        });
      });
    });
+=======
+
+
+
+// STELLE //////////////////
+
+>>>>>>> 9152320b62c09c724f7df880f65ea16a46656a9f
 
     // Recupera le stelle e l'elemento del valore di valutazione
   const stars = document.querySelectorAll(".star");
