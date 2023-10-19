@@ -14,7 +14,7 @@
 
 #main{
 
-    height: 100vh;
+    height: auto;
     background-image: url(../assets/images/bg.jpg);
     background-size: cover;
     color: white;
@@ -28,6 +28,7 @@
     width: 200px;
     height: auto;
     margin-bottom: 60px;
+    cursor: pointer;
    
 
 }
