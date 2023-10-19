@@ -686,7 +686,7 @@ return function(t) {
 
 
 
- //-------------------------funzione che salvi le risposte in array ------------------------------------------
+ /*-------------------------funzione che salvi le risposte in array ------------------------------------------
  function createAnswerArrays(questions) {
   const correct = [];
   const incorrect = [];
