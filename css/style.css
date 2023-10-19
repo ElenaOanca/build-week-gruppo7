@@ -15,7 +15,7 @@
 
 #main{
 
-    height: 100vh;
+    height: 130vh;
     background-image: url(../assets/images/bg.jpg);
     background-repeat: repeat;
     background-size: cover;
@@ -450,12 +450,26 @@ div > .results{
     font-size: 1.6rem;
     font-family: 'Outfit', sans-serif;
     margin-left: 15px;
+    margin-bottom: 35px;
 
 
 }
 
+.testi-dentro-cerchio{
+
+    position: absolute;
+    padding-bottom: 50px;
+    font-family: 'Outfit', sans-serif;
 
 
+}
+
+.inner-text-circle{
+
+position: relative;
+
+
+}
 
 /* .risultato-test{
     display: flex;
@@ -467,7 +481,7 @@ div > .results{
 }
 */
 .cerchio-container{
-
+    
     height: 500px;
     width: 1000px;
     
@@ -475,17 +489,10 @@ div > .results{
 }
 
 
-.testi-dentro-cerchio{
-
-    margin-top: 70px;
-    line-height: 1.5;
-
-}
 
 .testo-certificato{
 
     margin-top: 30px;
-
 
 }
 
@@ -494,6 +501,7 @@ div > .results{
     font-size: 3rem;
     font-family: 'Outfit', sans-serif;
     width: 30%;
+    padding-top: 50px;
 }
 
 .errate{
@@ -501,6 +509,7 @@ div > .results{
     font-size: 3rem;
     font-family: 'Outfit', sans-serif;
     width: 30%;
+    padding-top: 50px;
 }
 
 .rate-us {

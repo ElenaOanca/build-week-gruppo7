@@ -1,9 +1,10 @@
 const chartData = {
-  labels: ["Corrette", "Sbagliate"],
-  data: [30, 17], ////collegare array che contengono risposte giuste e sbagliate
+  labels: ["Risposte sbagliate", "Risposte corrette"],
+  
 };
 
 const myChart = document.querySelector(".concentric-circle"); //div di riferimento nell'html
+
 
 
 new Chart(myChart, {
@@ -13,7 +14,8 @@ new Chart(myChart, {
     datasets: [
       {
         label: "",
-        data: chartData.data,
+        data: [2, 1], ////collegare array che contengono risposte giuste e sbagliate
+          backgroundColor: ["#C2128D", "#04FFFF"]
       },
     ],
   },
@@ -29,7 +31,6 @@ new Chart(myChart, {
     },
   },
 });
-
 
 
 
