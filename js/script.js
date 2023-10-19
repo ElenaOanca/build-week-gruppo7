@@ -80,6 +80,7 @@ proceedButton.addEventListener("click", function () {
 
 
 const questions = [
+ 
   {
     category: "Science: Computers",
     type: "multiple",
@@ -177,6 +178,96 @@ const questions = [
     correct_answer: "Java",
     incorrect_answers: ["Python", "C", "Jakarta"],
   },
+
+  {
+    category: "Science: Computers",
+    type: "multiple",
+    difficulty: "easy",
+    question: "What is the primary purpose of an operating system?",
+    correct_answer: "Managing hardware and software resources",
+    incorrect_answers: [
+      "Playing games",
+      "Browsing the internet",
+      "Sending emails",
+    ],
+  },
+  {
+    category: "Science: Computers",
+    type: "boolean",
+    difficulty: "easy",
+    question: "Java is an interpreted programming language.",
+    correct_answer: "False",
+    incorrect_answers: ["True"],
+  },
+  {
+    category: "Science: Computers",
+    type: "multiple",
+    difficulty: "easy",
+    question: "What does HTML stand for?",
+    correct_answer: "Hypertext Markup Language",
+    incorrect_answers: [
+      "Hyper Text Makeup Language",
+      "High-Level Text Language",
+      "Home Tool Markup Language",
+    ],
+  },
+  {
+    category: "Science: Computers",
+    type: "multiple",
+    difficulty: "easy",
+    question: "Which company developed the C# programming language?",
+    correct_answer: "Microsoft",
+    incorrect_answers: ["Apple", "Google", "Oracle"],
+  },
+  {
+    category: "Science: Computers",
+    type: "boolean",
+    difficulty: "easy",
+    question: "A gigabyte is larger than a megabyte.",
+    correct_answer: "True",
+    incorrect_answers: ["False"],
+  },
+  {
+    category: "Science: Computers",
+    type: "multiple",
+    difficulty: "easy",
+    question: "What does SQL stand for?",
+    correct_answer: "Structured Query Language",
+    incorrect_answers: ["Simple Query Language", "Software Quality Language", "System Query Language"],
+  },
+  {
+    category: "Science: Computers",
+    type: "multiple",
+    difficulty: "easy",
+    question: "Which programming language is known for its use in data analysis and scientific computing?",
+    correct_answer: "Python",
+    incorrect_answers: ["C++", "Java", "R"],
+  },
+  {
+    category: "Science: Computers",
+    type: "boolean",
+    difficulty: "easy",
+    question: "JavaScript is a compiled language.",
+    correct_answer: "False",
+    incorrect_answers: ["True"],
+  },
+  {
+    category: "Science: Computers",
+    type: "multiple",
+    difficulty: "easy",
+    question: "What is the main function of an algorithm in computer science?",
+    correct_answer: "Solving a specific problem",
+    incorrect_answers: ["Generating random numbers", "Printing text on the screen", "Playing music"],
+  },
+  {
+    category: "Science: Computers",
+    type: "multiple",
+    difficulty: "easy",
+    question: "Which web browser was developed by Mozilla?",
+    correct_answer: "Firefox",
+    incorrect_answers: ["Chrome", "Internet Explorer", "Safari"],
+  },
+  
 ];
 
 
