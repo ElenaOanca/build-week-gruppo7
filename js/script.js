@@ -115,7 +115,7 @@ document.addEventListener("DOMContentLoaded", function() {
 //////////////////////////////////////////////////////////////////////////////
 
 
-
+//lista domande quiz
 const questions = [
   {
     category: "Science: Computers",
@@ -217,9 +217,12 @@ const questions = [
 ];
 
 
-
-let currentQuestionIndex = Math.floor(Math.random() * questions.length); // Indice della domanda corrente
+// Indice della domanda corrente (casuale)
+let currentQuestionIndex = Math.floor(Math.random() * questions.length);
+//array per conteggiare le domande a cui si è risposto 
 const countAnswer = [];
+
+//creazione della pagina del quiz
 document.addEventListener("DOMContentLoaded", function () {
   const pagina = document.getElementById("domanda");
   const qButton = document.getElementById("nextQuestion");
@@ -239,12 +242,12 @@ for (let index = 0; index < questions.length; index++) {
   //funzione creazione domande
   function mostraDomandaCorrente() {
 
-
+    //svuota elementi pagina, così da caricarne una nuova
     pagina.innerHTML = "";
     qButton.innerHTML = "";
     
 
-
+    
     const divDomanda = document.createElement("div");
     divDomanda.innerText = questions[currentQuestionIndex].question;
     pagina.appendChild(divDomanda);
@@ -259,6 +262,7 @@ for (let index = 0; index < questions.length; index++) {
       const divQuestion = document.getElementById("nextQuestion");
       const avantiButton = document.createElement("button");
       avantiButton.innerText = "PROSSIMO";
+      avantiButton.classList.add("prossima-domanda")
       const spanButton = document.createElement("span");
       spanButton.classList.add("fas", "fa-arrow-right");
       avantiButton.appendChild(spanButton);
@@ -280,6 +284,7 @@ for (let index = 0; index < questions.length; index++) {
     } else if (currentQuestionIndex){ //< questions.length - 1) {
       const divQuestion = document.getElementById("nextQuestion");
       const avantiButton = document.createElement("button");
+      avantiButton.classList.add("prossima-domanda")
       avantiButton.innerText = "PROSSIMO";
       const spanButton = document.createElement("span");
       spanButton.classList.add("fas", "fa-arrow-right");
