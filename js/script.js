@@ -1,17 +1,4 @@
-// FUNZIONE TIMER /////////////////////////
 
-let timer = document.querySelector(".timer")
-    timer.innerHTML= 60
-
-    const interval = setInterval(() => {
-      console.log(timer.innerHTML);
-      timer.innerHTML--;
-
-      if (timer.innerHTML <= 0 ) {
-        clearInterval(interval);
-
-      }
-    }, 1000);
 
 
 // STELLE //////////////////
@@ -259,8 +246,25 @@ document.addEventListener("DOMContentLoaded", function () {
   //const risposte = document.getElementById("risposte");
   mostraDomandaCorrente();
 
+const correctAnswer = [];
+const contatoreGiuste = [];
+const contatoreSbagliate = [];
+for (let index = 0; index < questions.length; index++) {
+  const element = questions[index].correct_answer;
+  correctAnswer.push(element);
+}
+
+console.log(contatoreGiuste, contatoreSbagliate);
+
+  //funzione creazione domande
   function mostraDomandaCorrente() {
+
+
     pagina.innerHTML = "";
+
+   
+
+
     const divDomanda = document.createElement("div");
     divDomanda.innerText = questions[currentQuestionIndex].question;
     pagina.appendChild(divDomanda);
@@ -306,8 +310,10 @@ document.addEventListener("DOMContentLoaded", function () {
       pagina.appendChild(avantiButton);
     }
   }
-
+   
   function mostraBottoniRisposte(questNumber) {
+    
+    
     const divRisposte = document.createElement("div");
     const risposte = [questions[questNumber].correct_answer, ...questions[questNumber].incorrect_answers];
     risposte.sort(() => Math.random() - 0.5);
@@ -316,6 +322,15 @@ document.addEventListener("DOMContentLoaded", function () {
       const button = document.createElement("button");
       button.innerText = risposta;
       button.classList.add("risposte");
+      button.addEventListener("click", function(){
+        if (risposta === questions[questNumber].correct_answer){
+          let contatore = {};
+          contatoreGiuste.push(contatore);
+        }else {
+          let contatore = {};
+          contatoreSbagliate.push(contatore);
+        }
+      });
       divRisposte.appendChild(button);
     }
 
@@ -323,6 +338,8 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   function mostraBottoniVeroFalso(questNumber) {
+   
+    
     const divRisposte = document.createElement("div");
     const button1 = document.createElement("button");
     button1.classList.add("risposte");
@@ -332,9 +349,23 @@ document.addEventListener("DOMContentLoaded", function () {
     button1.innerText = "True";
     button2.innerText = "False";
 
+    button1.addEventListener("click", function(){
+      if (risposta === questions[questNumber].correct_answer){
+        let contatore = {};
+        contatoreGiuste.push(contatore);
+      }else {
+        let contatore = {};
+        contatoreSbagliate.push(contatore);
+      }
+    });
+    
+
     divRisposte.appendChild(button1);
     divRisposte.appendChild(button2);
 
     pagina.appendChild(divRisposte);
   }
 });
+
+
+
