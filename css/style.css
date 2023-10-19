@@ -5,6 +5,7 @@
     --colore-h5: #D20094;
     font-family: 'Inter', sans-serif;
     box-sizing: border-box;
+   
   }
 
 
@@ -13,7 +14,6 @@
 
 #main{
 
-    width: 0 auto;
     height: 100vh;
     background-image: url(../assets/images/bg.jpg);
     background-size: cover;
@@ -40,7 +40,7 @@
 .h4{
 
     font-size: 6rem;
-    max-width: 600px;
+    max-width: 60%;
     font-weight:300;
     line-height: 0.8;
     margin-bottom: 40px;
@@ -406,7 +406,13 @@ li {
 /************ PAGINA RISULTATO ****************/
 
 
+.contenuto-pagina-risultato{
 
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+}
 
 
 div > .results{
@@ -437,7 +443,7 @@ div > .results{
     margin-bottom: 30px;
     text-align: center;
 }
-.cerchio{
+.concentric-circle{
     border: 60px solid;
     border-right-color: #C2128D;
     border-radius: 50%;
