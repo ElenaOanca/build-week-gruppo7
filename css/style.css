@@ -175,9 +175,21 @@ li {
     font-size: 1.3rem;
     font-weight: 700;
     cursor: pointer;
-
+    transition: 0.3s;
   
 }
+
+
+
+.button-page-1-4:hover{
+
+    background-color: #D20094;
+    color: white;
+    box-shadow: 0 0 1cm rgba(0, 255, 255, 0.327);
+
+}
+
+
 
 /* .timer {
     display: flex;
@@ -383,7 +395,8 @@ li {
 
 }
 
-.prossima-domanda{
+
+.prossima-domanda {
 
     color: white;
     font-weight: 600;
@@ -398,6 +411,8 @@ li {
    
 
 }
+
+
 
 .fas{
 
