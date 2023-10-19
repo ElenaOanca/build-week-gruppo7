@@ -435,7 +435,7 @@ proceedButton.addEventListener("click", function () {
 
 
 
-function checkQuizCompletion() {
+function checkQuizCompletion() {//-------------da completare con matias----------
   if (quizCompleted) {
     // Il quiz è completo, nascondi la "page2" e mostra la "page3"
     document.getElementById("page2").classList.add("hidden");
