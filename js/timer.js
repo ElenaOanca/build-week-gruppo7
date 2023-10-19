@@ -1,4 +1,4 @@
-
+/// FUNZIONE TIMER
 var width = 400,
   height = 400,
   timePassed = 0,
