@@ -109,11 +109,9 @@ document.addEventListener("DOMContentLoaded", function() {
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
-
+let first = true;
 function erTimer(){
-  if (!stopTimer){
-    return;
-  }
+ 
   
 var width = 400,
   height = 400,
@@ -164,7 +162,7 @@ var label = field.append("text")
   .attr("dy", ".35em");
 
 (function update() {
-
+  first = false;
   field
     .each(function(d) {
       d.previous = d.value, d.value = d.update(timePassed);
@@ -383,8 +381,10 @@ for (let index = 0; index < questions.length; index++) {
   
   //funzione creazione domande
   function mostraDomandaCorrente() {
-    
-    
+    // if (!first){
+    //   destroyTimer();
+    // }
+    erTimer();
     
     //svuota elementi pagina, così da caricarne una nuova
     pagina.innerHTML = "";
