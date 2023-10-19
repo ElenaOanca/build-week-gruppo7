@@ -1,5 +1,5 @@
 
-const sections = document.querySelectorAll("section"); // Seleziona tutte le sezioni
+/*const sections = document.querySelectorAll("section"); // Seleziona tutte le sezioni
 // Funzione per nascondere tutte le sezioni tranne quella con l'indice specificato
 let showPage = function showPage(pageNumber) {
   sections.forEach(function (section, index) {
@@ -18,7 +18,7 @@ nextButtons.forEach(function (button, index) {
   button.addEventListener("click", function () {
     showPage(index + 2); // Passa all'indice successivo (inizia da 2)
   });
-});
+});*/
 
 
 // Recupera le stelle e l'elemento del valore di valutazione
