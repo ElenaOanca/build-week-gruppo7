@@ -61,7 +61,7 @@ document.addEventListener("DOMContentLoaded", function() {
   // Funzione per gestire il clic su una stella
   function clickStar(event) {
     rating = parseInt(event.target.getAttribute("data-stars"));
-    starsValue.textContent = `Valutazione: ${rating}`;
+    // starsValue.textContent = `Valutazione: ${rating}`;
   }
 
   // Inizializza le stelle vuote all'avvio
@@ -346,4 +346,45 @@ console.log(contatoreGiuste, contatoreSbagliate);
 });
 
 
+/* function popUp() {
 
+let buttonMoreInfo = document.querySelector(".more-info");
+
+buttonMoreInfo.addEventListener("click", function(){
+
+Swal.fire({
+  title: 'Sweet!',
+  text: 'Modal with a custom image.',
+  imageUrl: 'https://unsplash.it/400/200',
+  imageWidth: 400,
+  imageHeight: 200,
+  imageAlt: 'Custom image',
+})
+})
+}
+*/ 
+
+// Aggiungi un gestore di eventi al pulsante con la classe "more-info"
+
+const submitMoreInfo = document.querySelector(".more-info"); //creata variabile per bottone
+submitMoreInfo.addEventListener("click", function(e) {
+  e.preventDefault();
+  checkIfStarsSelected();
+}); // impostato il preventDefault al bottone
+
+// creata funzione per il pop-up se non si selezionano stelle e di redirect al sito
+
+function checkIfStarsSelected() {
+  if (rating === 0) {
+    Swal.fire({
+      title: 'Michele dice:',
+      text: 'Inserisci una valutazione!!',
+      imageUrl: 'https://i.ibb.co/LSMmBPC/michele.png',
+      imageWidth: 200,
+      imageHeight: 200,
+      imageAlt: 'Michele Arcangelo Tedesco',
+    });
+  } else {
+    window.location.href = 'https://epicode.com/it/';
+  }
+} 
