@@ -237,9 +237,8 @@ console.log(contatoreGiuste, contatoreSbagliate);
     }
 
     if (currentQuestionIndex === 0) {
-      const avantiButton = document.createElement("button");
-      avantiButton.innerText = "Avanti";
-      avantiButton.classList.add("risposte");
+      const avantiButton = document.querySelector('prossima-domanda');
+      
       avantiButton.addEventListener("click", function () {
 
         if (countAnswer.length === 10){
