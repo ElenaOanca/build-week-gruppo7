@@ -761,3 +761,9 @@ const risultato = calcolaPercentualeRisposteCorrette();
 console.log("Percentuale risposte corrette:", risultato.percentualeCorrette);
 console.log("Percentuale risposte errate:", risultato.percentualeErrate);
 
+
+
+
+
+
+
