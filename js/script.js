@@ -12,7 +12,7 @@ document.addEventListener("DOMContentLoaded", function() {
      });
      }
    
-     // Aggiungi un gestore di eventi a tutti i pulsanti "Next"
+     // Aggiungi un gestore di eventi a tutti i pulsanti "Next"(rimanda alla pagina successiva)
      const nextButtons = document.querySelectorAll(".buttonLogica");
      nextButtons.forEach(function(button, index) {
        button.addEventListener("click", function() {
@@ -217,30 +217,32 @@ const questions = [
 ];
 
 
+
 let currentQuestionIndex = Math.floor(Math.random() * questions.length); // Indice della domanda corrente
 const countAnswer = [];
 document.addEventListener("DOMContentLoaded", function () {
   const pagina = document.getElementById("domanda");
+  const qButton = document.getElementById("nextQuestion");
+  
   //const risposte = document.getElementById("risposte");
   mostraDomandaCorrente();
 
 const correctAnswer = [];
-const contatoreGiuste = [];
-const contatoreSbagliate = [];
+//const contatoreGiuste = [];
+//const contatoreSbagliate = [];
 for (let index = 0; index < questions.length; index++) {
   const element = questions[index].correct_answer;
   correctAnswer.push(element);
 }
 
-console.log(contatoreGiuste, contatoreSbagliate);
 
   //funzione creazione domande
   function mostraDomandaCorrente() {
 
 
     pagina.innerHTML = "";
-
-   
+    qButton.innerHTML = "";
+    
 
 
     const divDomanda = document.createElement("div");
@@ -254,9 +256,13 @@ console.log(contatoreGiuste, contatoreSbagliate);
     }
 
     if (currentQuestionIndex === 0) {
+      const divQuestion = document.getElementById("nextQuestion");
       const avantiButton = document.createElement("button");
-      avantiButton.innerText = "Avanti";
-      avantiButton.classList.add("risposte");
+      avantiButton.innerText = "PROSSIMO";
+      const spanButton = document.createElement("span");
+      spanButton.classList.add("fas", "fa-arrow-right");
+      avantiButton.appendChild(spanButton);
+      divQuestion.appendChild(avantiButton);
       avantiButton.addEventListener("click", function () {
 
         if (countAnswer.length === 10){
@@ -264,28 +270,34 @@ console.log(contatoreGiuste, contatoreSbagliate);
         }else{
 
           currentQuestionIndex = Math.floor(Math.random() * questions.length);
-          let countObj = {};
-          countAnswer.push(countObj);
-          console.log(countAnswer);
+          //let countObj = {};
+          //countAnswer.push(countObj);
+          //console.log(countAnswer);
           mostraDomandaCorrente();
         }
         });
       pagina.appendChild(avantiButton);
     } else if (currentQuestionIndex){ //< questions.length - 1) {
+      const divQuestion = document.getElementById("nextQuestion");
       const avantiButton = document.createElement("button");
-      avantiButton.innerText = "Avanti";
-      avantiButton.classList.add("risposte");
+      avantiButton.innerText = "PROSSIMO";
+      const spanButton = document.createElement("span");
+      spanButton.classList.add("fas", "fa-arrow-right");
+      avantiButton.appendChild(spanButton);
+      divQuestion.appendChild(avantiButton)
       if (countAnswer.length === 10){
-        window.location.assign("risultato.html");
+        button.addEventListener("click", function() {
+          showPage(index + 2); // Passa all'indice successivo (inizia da 2)
+        });
       }else{
       avantiButton.addEventListener("click", function () {
         currentQuestionIndex = Math.floor(Math.random() * questions.length);
-        let countObj = {};
-        countAnswer.push(countObj);
-        console.log(countAnswer);
+        //let countObj = {};
+        //countAnswer.push(countObj);
+        
         mostraDomandaCorrente();
       });}
-      pagina.appendChild(avantiButton);
+      //pagina.appendChild(avantiButton);
     }
   }
    
@@ -300,15 +312,15 @@ console.log(contatoreGiuste, contatoreSbagliate);
       const button = document.createElement("button");
       button.innerText = risposta;
       button.classList.add("risposte");
-      button.addEventListener("click", function(){
-        if (risposta === questions[questNumber].correct_answer){
-          let contatore = {};
-          contatoreGiuste.push(contatore);
-        }else {
-          let contatore = {};
-          contatoreSbagliate.push(contatore);
-        }
-      });
+      // button.addEventListener("click", function(){
+      //   if (risposta === questions[questNumber].correct_answer){
+      //     let contatore = {};
+      //     contatoreGiuste.push(contatore);
+      //   }else {
+      //     let contatore = {};
+      //     contatoreSbagliate.push(contatore);
+      //   }
+      // });
       divRisposte.appendChild(button);
     }
 
