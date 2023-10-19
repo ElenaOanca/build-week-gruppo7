@@ -388,3 +388,5 @@ function checkIfStarsSelected() {
     window.location.href = 'https://epicode.com/it/';
   }
 } 
+
+
