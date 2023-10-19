@@ -18,11 +18,11 @@
 
         <section id="page1">
             <div id="contenuto-pagina">
-                <div class="h4 welcome">Welcome <span>to your exam</span></div>
-                <div class="h5">Instructions</div>
-                <div class="p sottotesto-page-1">We don't expect most engineers to know the answers to all of these
+                <p class="h4 welcome">Welcome <span>to your exam</span></p>
+                <p class="h5">Instructions</p>
+                <p class="p sottotesto-page-1">We don't expect most engineers to know the answers to all of these
                     questions,
-                    so don't worry if you're unsure of a few of them.</div>
+                    so don't worry if you're unsure of a few of them.</p>
                 <div class="lista-istruzioni">
                     <ul>
                         <li>Each question is <span>timed</span> and can only be <span>answered once</span>.</li>
@@ -75,9 +75,9 @@
 
                         <div class="h6">QUESTION 1 <span class="slash">/ 10</span></div>
 
-                </div>
+                    </div>
             
-
+                </div>
             </div>
         </section>
 
@@ -90,38 +90,32 @@
                 <div class="results h4"> Results</div>
                 <div class="testo-page-3">The summary of your answers:</div>
                 <div class="risultato-test">
-
-                    <div class="corrette risultato">Correct</div>
-                    <div class="cerchio-container">
-                        <div class="circle">
-                        </div>
-                        <div class="concentric-circle">
-                        <div class="testi-dentro-cerchio">
-                            <p><span>Congratulations!</span></p>
-                            <p><span>You passed the exam.</span></p>
-                            <p class="testo-certificato">We'll send you the certificate in few minutes. Check your email
-                                (including promotions/spam folder)</p>
-                        </div>
-    
+                    <p class="corrette risultato flex">Correct</p>
+                    <div class="cerchio-container flex">
+                        <canvas class="concentric-circle"></canvas>
                     </div>
-                    <div class="errate risultato">Wrong</div>
+                    <p class="errate risultato flex">Wrong</p>
+            </div>
 
-                </div>
+                 <div class="testi-dentro-cerchio">         
 
-                <div>
+                   <p class="inner-text-circle">prova</p>
+                   <p class="inner-text-circle">prova</p>
+
+                 </div>
+            <div>
 
                     <button class="rate-us">RATE US</button>
 
-                </div>
             </div>
         </section>
 
 
         <section id="page4" class="hidden">
             <div id="contenuto-pagina-4">
-                <div class="h4 come-sta-andando"><span>Tell us how it's going</span></div>
-                <div class="testo-page-4">From 0 to 10, how likely are you to recommend EPICODE to a friend or a
-                    colleague?</div>
+                <p class="h4 come-sta-andando"><span>Tell us how it's going</span></p>
+                <p class="testo-page-4">From 0 to 10, how likely are you to recommend EPICODE to a friend or a
+                    colleague?</p>
                 <form class="form" action="submit">
                     <div class="stars">
                         <span class="star" data-stars="1">&#9733;</span>
@@ -150,6 +144,9 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="js/script.js"></script>
     <script src="https:////cdnjs.cloudflare.com/ajax/libs/d3/3.5.16/d3.min.js"></script>
+    <script src="js/timer.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+    <script src="js/doughnut.js"></script>
 
 </body>
 

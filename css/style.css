@@ -12,10 +12,12 @@
 /************* PAGINA WELCOME **************/
 
 
+
 #main{
 
-    height: auto;
+    height: 130vh;
     background-image: url(../assets/images/bg.jpg);
+    background-repeat: repeat;
     background-size: cover;
     color: white;
     padding: 35px 80px 80px 80px;
@@ -407,14 +409,32 @@ li {
 /************ PAGINA RISULTATO ****************/
 
 
-.contenuto-pagina-risultato{
+#contenuto-pagina-risultato{ 
 
     display: flex;
     flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+
+}
+
+
+.risultato-test{
+
+    display: flex;
     align-items: center;
 
 }
 
+.flex{
+
+    flex: 1; 
+    height: 100px;
+    border: 1px solid #000;
+    margin: 10px;
+
+}
 
 div > .results{
     font-weight: 600;
@@ -430,43 +450,49 @@ div > .results{
     font-size: 1.6rem;
     font-family: 'Outfit', sans-serif;
     margin-left: 15px;
+    margin-bottom: 35px;
 
 
-}
-
-.risultato-test{
-    display: flex;
-    flex-direction: row;
-    flex-wrap: nowrap;
-    align-items: center;
-    width: 1200px ;
-    margin-top: 50px;
-    margin-bottom: 30px;
-    text-align: center;
-}
-.concentric-circle{
-    border: 60px solid;
-    border-right-color: #C2128D;
-    border-radius: 50%;
-    height: 300px;
-    width: 40%;
-    text-align: center;
-    padding: 30px;
-    margin-left: 60px;
-    margin-right: 60px;
 }
 
 .testi-dentro-cerchio{
 
-    margin-top: 70px;
-    line-height: 1.5;
+    position: absolute;
+    padding-bottom: 50px;
+    font-family: 'Outfit', sans-serif;
+
 
 }
+
+.inner-text-circle{
+
+position: relative;
+
+
+}
+
+/* .risultato-test{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-items: center;
+    margin-bottom: 30px;
+    text-align: center;
+}
+*/
+.cerchio-container{
+    
+    height: 500px;
+    width: 1000px;
+    
+
+}
+
+
 
 .testo-certificato{
 
     margin-top: 30px;
-
 
 }
 
@@ -475,6 +501,7 @@ div > .results{
     font-size: 3rem;
     font-family: 'Outfit', sans-serif;
     width: 30%;
+    padding-top: 50px;
 }
 
 .errate{
@@ -482,13 +509,14 @@ div > .results{
     font-size: 3rem;
     font-family: 'Outfit', sans-serif;
     width: 30%;
+    padding-top: 50px;
 }
 
 .rate-us {
     color: white;
     font-weight: 600;
     font-size: 1.4rem;
-    margin-top: 20px;
+    margin-top: 30px;
     width: 300px;
     height: 80px;
     text-align: center;
