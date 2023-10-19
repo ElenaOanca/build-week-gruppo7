@@ -343,7 +343,4 @@ console.log(contatoreGiuste, contatoreSbagliate);
 
     pagina.appendChild(divRisposte);
   }
-});
-
-
-
+})
