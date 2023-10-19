@@ -388,5 +388,4 @@ if (rating === 0) {
  window.location.href = 'https://epicode.com/it/';
 }
 } 
-script.js
-12 KB
+
