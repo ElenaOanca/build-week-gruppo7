@@ -1,25 +1,25 @@
 document.addEventListener("DOMContentLoaded", function() {
-  const sections = document.querySelectorAll("section"); // Seleziona tutte le sezioni
-  // Funzione per nascondere tutte le sezioni tranne quella con l'indice specificato
-  function showPage(pageNumber) {
-    sections.forEach(function(section, index) {
-      if (index + 1 === pageNumber) {
-        section.classList.remove("hidden");
-      } else {
-        section.classList.add("hidden");
-      }
-       
-  });
-  }
-
-  // Aggiungi un gestore di eventi a tutti i pulsanti "Next"
-  const nextButtons = document.querySelectorAll(".buttonLogica");
-  nextButtons.forEach(function(button, index) {
-    button.addEventListener("click", function() {
-      showPage(index + 2); // Passa all'indice successivo (inizia da 2)
-    });
-  });
-});
+     const sections = document.querySelectorAll("section"); // Seleziona tutte le sezioni
+     // Funzione per nascondere tutte le sezioni tranne quella con l'indice specificato
+     function showPage(pageNumber) {
+       sections.forEach(function(section, index) {
+         if (index + 1 === pageNumber) {
+           section.classList.remove("hidden");
+         } else {
+           section.classList.add("hidden");
+         }
+          
+     });
+     }
+   
+     // Aggiungi un gestore di eventi a tutti i pulsanti "Next"(rimanda alla pagina successiva)
+     const nextButtons = document.querySelectorAll(".buttonLogica");
+     nextButtons.forEach(function(button, index) {
+       button.addEventListener("click", function() {
+         showPage(index + 2); // Passa all'indice successivo (inizia da 2)
+       });
+     });
+   });
 
  // Recupera le stelle e l'elemento del valore di valutazione
 const stars = document.querySelectorAll(".star");
@@ -217,30 +217,32 @@ const questions = [
 ];
 
 
+
 let currentQuestionIndex = Math.floor(Math.random() * questions.length); // Indice della domanda corrente
 const countAnswer = [];
 document.addEventListener("DOMContentLoaded", function () {
-const pagina = document.getElementById("domanda");
-//const risposte = document.getElementById("risposte");
-mostraDomandaCorrente();
+  const pagina = document.getElementById("domanda");
+  const qButton = document.getElementById("nextQuestion");
+  
+  //const risposte = document.getElementById("risposte");
+  mostraDomandaCorrente();
 
 const correctAnswer = [];
-const contatoreGiuste = [];
-const contatoreSbagliate = [];
+//const contatoreGiuste = [];
+//const contatoreSbagliate = [];
 for (let index = 0; index < questions.length; index++) {
 const element = questions[index].correct_answer;
 correctAnswer.push(element);
 }
 
-console.log(contatoreGiuste, contatoreSbagliate);
 
 //funzione creazione domande
 function mostraDomandaCorrente() {
 
 
- pagina.innerHTML = "";
-
-
+    pagina.innerHTML = "";
+    qButton.innerHTML = "";
+    
 
 
  const divDomanda = document.createElement("div");
@@ -253,64 +255,74 @@ function mostraDomandaCorrente() {
    mostraBottoniVeroFalso(currentQuestionIndex);
  }
 
- if (currentQuestionIndex === 0) {
-   const avantiButton = document.createElement("button");
-   avantiButton.innerText = "Avanti";
-   avantiButton.classList.add("risposte");
-   avantiButton.addEventListener("click", function () {
+    if (currentQuestionIndex === 0) {
+      const divQuestion = document.getElementById("nextQuestion");
+      const avantiButton = document.createElement("button");
+      avantiButton.innerText = "PROSSIMO";
+      const spanButton = document.createElement("span");
+      spanButton.classList.add("fas", "fa-arrow-right");
+      avantiButton.appendChild(spanButton);
+      divQuestion.appendChild(avantiButton);
+      avantiButton.addEventListener("click", function () {
 
      if (countAnswer.length === 10){
        window.location.assign("risultato.html");
      }else{
 
-       currentQuestionIndex = Math.floor(Math.random() * questions.length);
-       let countObj = {};
-       countAnswer.push(countObj);
-       console.log(countAnswer);
-       mostraDomandaCorrente();
-     }
-     });
-   pagina.appendChild(avantiButton);
- } else if (currentQuestionIndex){ //< questions.length - 1) {
-   const avantiButton = document.createElement("button");
-   avantiButton.innerText = "Avanti";
-   avantiButton.classList.add("risposte");
-   if (countAnswer.length === 10){
-     window.location.assign("risultato.html");
-   }else{
-   avantiButton.addEventListener("click", function () {
-     currentQuestionIndex = Math.floor(Math.random() * questions.length);
-     let countObj = {};
-     countAnswer.push(countObj);
-     console.log(countAnswer);
-     mostraDomandaCorrente();
-   });}
-   pagina.appendChild(avantiButton);
- }
-}
+          currentQuestionIndex = Math.floor(Math.random() * questions.length);
+          //let countObj = {};
+          //countAnswer.push(countObj);
+          //console.log(countAnswer);
+          mostraDomandaCorrente();
+        }
+        });
+      pagina.appendChild(avantiButton);
+    } else if (currentQuestionIndex){ //< questions.length - 1) {
+      const divQuestion = document.getElementById("nextQuestion");
+      const avantiButton = document.createElement("button");
+      avantiButton.innerText = "PROSSIMO";
+      const spanButton = document.createElement("span");
+      spanButton.classList.add("fas", "fa-arrow-right");
+      avantiButton.appendChild(spanButton);
+      divQuestion.appendChild(avantiButton)
+      if (countAnswer.length === 10){
+        button.addEventListener("click", function() {
+          showPage(index + 2); // Passa all'indice successivo (inizia da 2)
+        });
+      }else{
+      avantiButton.addEventListener("click", function () {
+        currentQuestionIndex = Math.floor(Math.random() * questions.length);
+        //let countObj = {};
+        //countAnswer.push(countObj);
+        
+        mostraDomandaCorrente();
+      });}
+      //pagina.appendChild(avantiButton);
+    }
+  }
+   
+  function mostraBottoniRisposte(questNumber) {
+    
+    
+    const divRisposte = document.createElement("div");
+    const risposte = [questions[questNumber].correct_answer, ...questions[questNumber].incorrect_answers];
+    risposte.sort(() => Math.random() - 0.5);
 
-function mostraBottoniRisposte(questNumber) {
- 
- 
- const divRisposte = document.createElement("div");
- const risposte = [questions[questNumber].correct_answer, ...questions[questNumber].incorrect_answers];
- risposte.sort(() => Math.random() - 0.5);
-
- for (let risposta of risposte) {
-   const button = document.createElement("button");
-   button.innerText = risposta;
-   button.classList.add("risposte");
-   button.addEventListener("click", function(){
-     if (risposta === questions[questNumber].correct_answer){
-       let contatore = {};
-       contatoreGiuste.push(contatore);
-     }else {
-       let contatore = {};
-       contatoreSbagliate.push(contatore);
-     }
-   });
-   divRisposte.appendChild(button);
- }
+    for (let risposta of risposte) {
+      const button = document.createElement("button");
+      button.innerText = risposta;
+      button.classList.add("risposte");
+      // button.addEventListener("click", function(){
+      //   if (risposta === questions[questNumber].correct_answer){
+      //     let contatore = {};
+      //     contatoreGiuste.push(contatore);
+      //   }else {
+      //     let contatore = {};
+      //     contatoreSbagliate.push(contatore);
+      //   }
+      // });
+      divRisposte.appendChild(button);
+    }
 
  pagina.appendChild(divRisposte);
 }
@@ -388,4 +400,3 @@ if (rating === 0) {
  window.location.href = 'https://epicode.com/it/';
 }
 } 
-
