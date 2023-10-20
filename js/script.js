@@ -629,3 +629,4 @@ new Chart(myChart, {
     },
   },
 });}
+chart()
