@@ -180,18 +180,19 @@ const questions = [
 ];
 
 
-
 let currentQuestionIndex = Math.floor(Math.random() * questions.length); // Indice della domanda corrente
 const countAnswer = [];
 
 document.addEventListener("DOMContentLoaded", function () {
   const pagina = document.getElementById("domanda");
   const qButton = document.getElementById("nextQuestion");
-
+  
   const correctAnswer = questions.map((question) => question.correct_answer);
   let contatoreGiuste = 0;
   let contatoreSbagliate = 0;
-
+  let contatoTotale;
+  
+  
   mostraDomandaCorrente();
 
   function mostraDomandaCorrente() {
@@ -216,16 +217,16 @@ document.addEventListener("DOMContentLoaded", function () {
     spanButton.classList.add("fas", "fa-arrow-right");
     avantiButton.appendChild(spanButton);
     divQuestion.appendChild(avantiButton);
+    
 
     avantiButton.addEventListener("click", function () {
-      if (countAnswer.length === 10) {
+      if (contatoTotale === 10) {
         const percentualeGiuste = (contatoreGiuste / 10) * 100;
         const percentualeSbagliate = (contatoreSbagliate / 10) * 100;
-        console.log(percentualeGiuste);
-        console.log(percentualeSbagliate)
+        
         page2.classList.add('hidden')
         page3.classList.remove('hidden')
-        return percentualeGiuste, percentualeSbagliate
+        return percentualeGiuste, percentualeSbagliate;
       } else {
         currentQuestionIndex = Math.floor(Math.random() * questions.length);
         countAnswer.push({});
@@ -279,11 +280,13 @@ document.addEventListener("DOMContentLoaded", function () {
   function gestisciRisposta(risposta, rispostaCorretta) {
     if (risposta === rispostaCorretta) {
       contatoreGiuste++;
-      console.log("Risposte corrette: " + contatoreGiuste);
+      //console.log("Risposte corrette: " + contatoreGiuste);
     } else {
       contatoreSbagliate++;
-      console.log("Risposte sbagliate: " + contatoreSbagliate);
+      //console.log("Risposte sbagliate: " + contatoreSbagliate);
     }
+    contatoTotale = contatoreGiuste + contatoreSbagliate;
+
   }
 });
 
