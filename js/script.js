@@ -26,7 +26,7 @@ const page4= document.getElementById('page4')
 
 
 
-const proceedButton = document.getElementById("proceedButton");
+const proceedButton = document.querySelector(".proceedButton");
 
 proceedButton.addEventListener("click", function () {
   const checkBox = document.querySelector("#myCheckbox");
@@ -274,32 +274,21 @@ const questions = [
 
 let currentQuestionIndex = Math.floor(Math.random() * questions.length); // Indice della domanda corrente
 const countAnswer = [];
+
 document.addEventListener("DOMContentLoaded", function () {
   const pagina = document.getElementById("domanda");
   const qButton = document.getElementById("nextQuestion");
-  
-  //const risposte = document.getElementById("risposte");
+
+  const correctAnswer = questions.map((question) => question.correct_answer);
+  let contatoreGiuste = 0;
+  let contatoreSbagliate = 0;
+
   mostraDomandaCorrente();
-  startsTimer();
-  
-  const correctAnswer = [];
-  //const contatoreGiuste = [];
-  //const contatoreSbagliate = [];
-  for (let index = 0; index < questions.length; index++) {
-    const element = questions[index].correct_answer;
-    correctAnswer.push(element);
-  }
-  
-  
-  //funzione creazione domande
+
   function mostraDomandaCorrente() {
-    
-    
     pagina.innerHTML = "";
     qButton.innerHTML = "";
-    
-    
-    
+
     const divDomanda = document.createElement("div");
     divDomanda.innerText = questions[currentQuestionIndex].question;
     pagina.appendChild(divDomanda);
@@ -309,58 +298,37 @@ document.addEventListener("DOMContentLoaded", function () {
     } else {
       mostraBottoniVeroFalso(currentQuestionIndex);
     }
-    
-    if (currentQuestionIndex === 0) {
-      const divQuestion = document.getElementById("nextQuestion");
-      const avantiButton = document.createElement("button");
-      avantiButton.innerText = "PROSSIMO";
-      const spanButton = document.createElement("span");
-      spanButton.classList.add("fas", "fa-arrow-right");
-      avantiButton.appendChild(spanButton);
-      divQuestion.appendChild(avantiButton);
-      avantiButton.addEventListener("click", function () {
-        
-        if (countAnswer.length === 10) {
-          window.location.assign("risultato.html");
-        } else {
-          
-          currentQuestionIndex = Math.floor(Math.random() * questions.length);
-          let countObj = {};
-          countAnswer.push(countObj);
-          //console.log(countAnswer);
-          mostraDomandaCorrente();
-        }
-      });
-      pagina.appendChild(avantiButton);
-    } else if (currentQuestionIndex) { //< questions.length - 1) {
-      const divQuestion = document.getElementById("nextQuestion");
-      const avantiButton = document.createElement("button");
-      avantiButton.innerText = "PROSSIMO";
-      const spanButton = document.createElement("span");
-      spanButton.classList.add("fas", "fa-arrow-right");
-      avantiButton.appendChild(spanButton);
-      divQuestion.appendChild(avantiButton)
+
+    const divQuestion = document.getElementById("nextQuestion");
+    const avantiButton = document.createElement("button");
+    avantiButton.innerText = "PROSSIMA ";
+    const spanButton = document.createElement("span");
+    spanButton.classList.add("fas", "fa-arrow-right");
+    avantiButton.classList.add("prossima-domanda")
+    avantiButton.appendChild(spanButton);
+    divQuestion.appendChild(avantiButton);
+
+    avantiButton.addEventListener("click", function () {
       if (countAnswer.length === 10) {
-        avantiButton.addEventListener("click", function () {
-          page2.classList.add('hidden')
-          page3.classList.remove('hidden')
-        });
+        const percentualeGiuste = (contatoreGiuste / 10) * 100;
+        const percentualeSbagliate = (contatoreSbagliate / 10) * 100;
+        console.log(percentualeGiuste);
+        console.log(percentualeSbagliate)
+        page2.classList.add('hidden')
+        page3.classList.remove('hidden')
+        return percentualeGiuste, percentualeSbagliate
       } else {
-        avantiButton.addEventListener("click", function () {
-          currentQuestionIndex = Math.floor(Math.random() * questions.length);
-          let countObj = {};
-          countAnswer.push(countObj);
-          
-          mostraDomandaCorrente();
-        });
+        currentQuestionIndex = Math.floor(Math.random() * questions.length);
+        countAnswer.push({});
+        mostraDomandaCorrente();
       }
-      //pagina.appendChild(avantiButton);
-    }
+    });
   }
+
+
+
   
   function mostraBottoniRisposte(questNumber) {
-    
-    
     const divRisposte = document.createElement("div");
     const risposte = [questions[questNumber].correct_answer, ...questions[questNumber].incorrect_answers];
     risposte.sort(() => Math.random() - 0.5);
@@ -369,51 +337,46 @@ document.addEventListener("DOMContentLoaded", function () {
       const button = document.createElement("button");
       button.innerText = risposta;
       button.classList.add("risposte");
-      // button.addEventListener("click", function(){
-        //   if (risposta === questions[questNumber].correct_answer){
-          //     let contatore = {};
-          //     contatoreGiuste.push(contatore);
-          //   }else {
-            //     let contatore = {};
-            //     contatoreSbagliate.push(contatore);
-            //   }
-            // });
-            divRisposte.appendChild(button);
-          }
-          
-          pagina.appendChild(divRisposte);
-        }
-        
-        function mostraBottoniVeroFalso(questNumber) {
-          
-          
-          const divRisposte = document.createElement("div");
-          const button1 = document.createElement("button");
-          button1.classList.add("risposte");
-          const button2 = document.createElement("button");
-          button2.classList.add("risposte");
-          
-          button1.innerText = "True";
-          button2.innerText = "False";
-          
-          button1.addEventListener("click", function () {
-            if (risposta === questions[questNumber].correct_answer) {
-        let contatore = {};
-        contatoreGiuste.push(contatore);
-      } else {
-        let contatore = {};
-        contatoreSbagliate.push(contatore);
-      }
-    });
-    
-    
+      divRisposte.appendChild(button);
+      button.addEventListener("click", function () {
+        gestisciRisposta(risposta, questions[questNumber].correct_answer);
+      });
+    }
+
+    pagina.appendChild(divRisposte);
+  }
+
+  function mostraBottoniVeroFalso(questNumber) {
+    const divRisposte = document.createElement("div");
+    const button1 = creaBottone("True");
+    const button2 = creaBottone("False");
+
     divRisposte.appendChild(button1);
     divRisposte.appendChild(button2);
     
     pagina.appendChild(divRisposte);
   }
-});
 
+  function creaBottone(testo) {
+    const button = document.createElement("button");
+    button.innerText = testo;
+    button.classList.add("risposte");
+    button.addEventListener("click", function () {
+      gestisciRisposta(testo, questions[currentQuestionIndex].correct_answer);
+    });
+    return button;
+  }
+
+  function gestisciRisposta(risposta, rispostaCorretta) {
+    if (risposta === rispostaCorretta) {
+      contatoreGiuste++;
+      console.log("Risposte corrette: " + contatoreGiuste);
+    } else {
+      contatoreSbagliate++;
+      console.log("Risposte sbagliate: " + contatoreSbagliate);
+    }
+  }
+});
 
 
 
@@ -548,7 +511,7 @@ function checkIfStarsSelected() {
 
 
 
-/***************************************************************************TIMER  *************************************************************/
+/***************************************************************************  TIMER  *************************************************************/
  /// FUNZIONE TIMER
  function startsTimer(){
 var width = 400,
@@ -679,91 +642,3 @@ return function(t) {
 };
 }
  }
-
-
-
-
-
-
-
- /*-------------------------funzione che salvi le risposte in array ------------------------------------------
- function createAnswerArrays(questions) {
-  const correct = [];
-  const incorrect = [];
-
- 
-  questions.forEach((question) => {
-    correct.push(question.correct_answer);
-    incorrect.push(...question.incorrect_answers);
-  });
-
-  return { correct, incorrect };
-}
-
-// Utilizzo della funzione
-const { correct, incorrect } = createAnswerArrays(questions);
-
-console.log("Array delle risposte corrette (correct):", correct);
-console.log("Array delle risposte errate (incorrect):", incorrect);
-
-
-//-------
-const risposteQuizCorrette = [];
-const risposteQuizErrate = [];
-
-function salvaRisposta(rispostaData, domandaCorrente) {
-  if (domandaCorrente.type === "multiple") {
-    // Se la domanda è a risposta multipla
-    if (rispostaData === domandaCorrente.correct_answer) {
-      // La risposta data è corretta
-      risposteQuizCorrette.push(rispostaData);
-    } else {
-      // La risposta data è errata
-      risposteQuizErrate.push(rispostaData);
-    }
-  } else if (domandaCorrente.type === "boolean") {
-    // Se la domanda è a risposta vero/falso
-    const rispostaCorretta = domandaCorrente.correct_answer === "True";
-    if (
-      (rispostaData === "True" && rispostaCorretta) ||
-      (rispostaData === "False" && !rispostaCorretta)
-    ) {
-      // La risposta data è corretta
-      risposteQuizCorrette.push(rispostaData);
-    } else {
-      // La risposta data è errata
-      risposteQuizErrate.push(rispostaData);
-    }
-  }
-}
-
-
-
-
-//-----------
-function calcolaPercentualeRisposteCorrette() {
-  const totaleRisposte = risposteQuizCorrette.length + risposteQuizErrate.length;
-  if (totaleRisposte === 0) {
-    return "Nessuna risposta data";
-  }
-
-  const percentualeCorrette = (risposteQuizCorrette.length / totaleRisposte) * 100;
-  const percentualeErrate = (risposteQuizErrate.length / totaleRisposte) * 100;
-
-  return {
-    percentualeCorrette: percentualeCorrette.toFixed(2) + "%",
-    percentualeErrate: percentualeErrate.toFixed(2) + "%",
-  };
-}
-
-
-const risultato = calcolaPercentualeRisposteCorrette();
-console.log("Percentuale risposte corrette:", risultato.percentualeCorrette);
-console.log("Percentuale risposte errate:", risultato.percentualeErrate);
-
-
-
-
-
-
-
