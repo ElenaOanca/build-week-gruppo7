@@ -36,7 +36,9 @@ proceedButton.addEventListener("click", function () {
     page2.classList.remove('hidden')
   } else {
     // Se la casella di controllo non è selezionata,  alert
-    alert("Devi flaggare il checkbox per procedere.");
+    Swal.fire({
+      icon: "warning",
+      text: 'Flag the checkbox to continue'});
   }
 });
 
@@ -199,6 +201,12 @@ document.addEventListener("DOMContentLoaded", function () {
     qButton.innerHTML = "";
 
     const divDomanda = document.createElement("div");
+    divDomanda.classList.add("domande-generate");
+    if(questions[currentQuestionIndex].question.length > 60){
+
+      divDomanda.classList.add("small-font")
+
+    }
     divDomanda.innerText = questions[currentQuestionIndex].question;
     pagina.appendChild(divDomanda);
 
