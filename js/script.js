@@ -270,28 +270,59 @@ const questions = [
   
 ];
 
+// Variabile per il numero totale di domande
+const numTotalQuestions = 10;
 
-let currentQuestionIndex = Math.floor(Math.random() * questions.length); // Indice della domanda corrente
-const countAnswer = [];
+let currentQuestionIndex = 0; // Indice della domanda corrente
+const countAnswer = []; // Conta risposte
+let contatoreGiuste = 0;
+let contatoreSbagliate = 0;
+let contatoreOmesse = 0;
 
 document.addEventListener("DOMContentLoaded", function () {
   const pagina = document.getElementById("domanda");
   const qButton = document.getElementById("nextQuestion");
-  
-  const correctAnswer = questions.map((question) => question.correct_answer);
-  let contatoreGiuste = 0;
-  let contatoreSbagliate = 0;
-  let contatoTotale;
-  
-  
+
+  let selectedAnswer = null;
+  let isLastQuestion = false;
+
+  // Funzione mostra domanda corrente
   mostraDomandaCorrente();
 
   function mostraDomandaCorrente() {
     pagina.innerHTML = "";
     qButton.innerHTML = "";
 
+    if (isLastQuestion) {
+      const percentualeGiuste = (contatoreGiuste / numTotalQuestions) * 100;
+      const percentualeSbagliate = (contatoreSbagliate / numTotalQuestions) * 100;
+      const percentualeOmesse = (contatoreOmesse / numTotalQuestions) * 100;
+
+      // Nascondi il contenuto di "page2" e mostra "page3"
+      document.querySelector(".page2").classList.add("hidden");
+      document.querySelector(".page3").classList.remove("hidden");
+
+      // Inserisci le percentuali corrette, sbagliate e omesse nella pagina
+      document.getElementById("percentualeGiuste").innerText = `Risposte corrette: ${percentualeGiuste.toFixed(2)}%`;
+      document.getElementById("percentualeSbagliate").innerText = `Risposte sbagliate: ${percentualeSbagliate.toFixed(2)}%`;
+      document.getElementById("percentualeOmesse").innerText = `Risposte omesse: ${percentualeOmesse.toFixed(2)}%`;
+
+      // Cambia il testo del pulsante in "PROCEED"
+      qButton.innerText = "PROCEED";
+      qButton.addEventListener("click", function () {
+        // Qui puoi aggiungere il codice per proseguire con l'azione successiva
+        // ad esempio, reindirizzando l'utente a una nuova pagina
+        window.location.href = "pagina_successiva.html";
+      });
+      return;
+    }
+
+    // Crea div per mostrare le domande
     const divDomanda = document.createElement("div");
     divDomanda.innerText = questions[currentQuestionIndex].question;
+    // Imposta uno stile per il background bianco
+    divDomanda.style.backgroundColor = "white";
+    divDomanda.style.padding = "10px"; // Aggiungi padding per migliorare l'aspetto
     pagina.appendChild(divDomanda);
 
     if (questions[currentQuestionIndex].type === "multiple") {
@@ -300,34 +331,30 @@ document.addEventListener("DOMContentLoaded", function () {
       mostraBottoniVeroFalso(currentQuestionIndex);
     }
 
+    // Crea bottone prossima domanda
     const divQuestion = document.getElementById("nextQuestion");
     const avantiButton = document.createElement("button");
-    avantiButton.innerText = "PROSSIMO";
+    avantiButton.innerText = "PROSSIMA";
     const spanButton = document.createElement("span");
     spanButton.classList.add("fas", "fa-arrow-right");
     avantiButton.appendChild(spanButton);
     divQuestion.appendChild(avantiButton);
-    
 
     avantiButton.addEventListener("click", function () {
-      if (contatoTotale === 10) {
-        const percentualeGiuste = (contatoreGiuste / 10) * 100;
-        const percentualeSbagliate = (contatoreSbagliate / 10) * 100;
-        
-        page2.classList.add('hidden')
-        page3.classList.remove('hidden')
-        return percentualeGiuste, percentualeSbagliate;
-      } else {
-        currentQuestionIndex = Math.floor(Math.random() * questions.length);
-        countAnswer.push({});
+      if (selectedAnswer !== null) {
+        gestisciRisposta(selectedAnswer, questions[currentQuestionIndex].correct_answer);
+        selectedAnswer = null;
+        currentQuestionIndex++;
+        if (currentQuestionIndex === numTotalQuestions - 1) {
+          // Quando si arriva all'ultima domanda, imposta isLastQuestion su true
+          isLastQuestion = true;
+        }
         mostraDomandaCorrente();
       }
     });
   }
 
-
-
-  
+  // Funzione per mostrare i bottoni delle risposte a scelta multipla
   function mostraBottoniRisposte(questNumber) {
     const divRisposte = document.createElement("div");
     const risposte = [questions[questNumber].correct_answer, ...questions[questNumber].incorrect_answers];
@@ -339,13 +366,18 @@ document.addEventListener("DOMContentLoaded", function () {
       button.classList.add("risposte");
       divRisposte.appendChild(button);
       button.addEventListener("click", function () {
-        gestisciRisposta(risposta, questions[questNumber].correct_answer);
+        if (selectedAnswer === null) {
+          selectedAnswer = risposta;
+          // Puoi aggiungere uno stile visivo per evidenziare la risposta selezionata
+          button.style.backgroundColor = "white";
+        }
       });
     }
 
     pagina.appendChild(divRisposte);
   }
 
+  // Funzione per mostrare i bottoni Vero/Falso
   function mostraBottoniVeroFalso(questNumber) {
     const divRisposte = document.createElement("div");
     const button1 = creaBottone("True");
@@ -357,26 +389,30 @@ document.addEventListener("DOMContentLoaded", function () {
     pagina.appendChild(divRisposte);
   }
 
+  // Funzione per creare un bottone per le risposte
   function creaBottone(testo) {
     const button = document.createElement("button");
     button.innerText = testo;
     button.classList.add("risposte");
     button.addEventListener("click", function () {
-      gestisciRisposta(testo, questions[currentQuestionIndex].correct_answer);
+      if (selectedAnswer === null) {
+        selectedAnswer = testo;
+        // Puoi aggiungere uno stile visivo per evidenziare la risposta selezionata
+        button.style.backgroundColor = "white";
+      }
     });
     return button;
   }
 
+  // Funzione per gestire la risposta
   function gestisciRisposta(risposta, rispostaCorretta) {
-    if (risposta === rispostaCorretta) {
-      contatoreGiuste++;
-      //console.log("Risposte corrette: " + contatoreGiuste);
-    } else {
+    if (!risposta) {
+      contatoreOmesse++;
+    } else if (risposta !== rispostaCorretta) {
       contatoreSbagliate++;
-      //console.log("Risposte sbagliate: " + contatoreSbagliate);
+    } else {
+      contatoreGiuste++;
     }
-    contatoTotale = contatoreGiuste + contatoreSbagliate;
-
   }
 });
 
