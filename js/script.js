@@ -171,6 +171,8 @@ let currentQuestionIndex;
 const countAnswer = []; // Un array per tener traccia delle risposte date
 let risposteNonDate = 0; // Contatore delle risposte non date
 let domandeMostrate = 0; // Contatore delle domande mostrate
+let contatoreGiuste = 0; // Contatore delle risposte corrette
+let contatoreSbagliate = 0; // Contatore delle risposte sbagliate
 let timerRef = null;
 
 // Funzione per mostrare la domanda corrente
@@ -204,6 +206,7 @@ function mostraDomandaCorrente(pagina, qButton) {
     const divQuestion = document.getElementById("nextQuestion");
     const avantiButton = document.createElement("button");
     avantiButton.innerText = "PROSSIMO";
+    avantiButton.classList.add("prossima-domanda")
     const spanButton = document.createElement("span");
     spanButton.classList.add("fas", "fa-arrow-right");
     avantiButton.appendChild(spanButton);
@@ -301,8 +304,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
   // Array che contiene le risposte corrette per ciascuna domanda
   const correctAnswer = questions.map((question) => question.correct_answer);
-  let contatoreGiuste = 0; // Contatore delle risposte corrette
-  let contatoreSbagliate = 0; // Contatore delle risposte sbagliate
 
   
   const proceedButton = document.querySelector(".proceedButton");

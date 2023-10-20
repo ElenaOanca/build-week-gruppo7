@@ -53,13 +53,13 @@
 .welcome{
 
     margin-bottom: 50px;
+    width: 600px;
 
 }
 
 span{
 
     font-weight: 600;
-
 }
 
 .h5{
@@ -465,6 +465,7 @@ li {
     justify-content: center;
     align-items: center;
     text-align: center;
+    
 
 }
 
@@ -473,6 +474,7 @@ li {
 
     display: flex;
     align-items: center;
+    
 
 }
 
@@ -480,7 +482,6 @@ li {
 
     flex: 1; 
     height: 100px;
-    border: 1px solid #000;
     margin: 10px;
 
 }
@@ -518,6 +519,7 @@ div > .results{
 position: relative;
 
 
+
 }
 
 /* .risultato-test{
@@ -536,7 +538,12 @@ position: relative;
     
 
 }
+.concentric-circle{
 
+    border-radius: 100%;
+    box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.627), 0 12px 40px 0 rgba(0, 0, 0, 0.541);
+    transition: 1.5s;
+}
 
 
 .testo-certificato{
@@ -565,7 +572,7 @@ position: relative;
     color: white;
     font-weight: 600;
     font-size: 1.4rem;
-    margin-top: 30px;
+    margin-top: 50px;
     width: 300px;
     height: 80px;
     text-align: center;
