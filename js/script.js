@@ -9,60 +9,7 @@ const page4= document.getElementById('page4')
 
 /*************************************WELCOME *************************************************************************/
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 /********************************************QUIZ *********************************************************************************************/
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -330,32 +277,11 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
 let rateUs = document.querySelector('.rate-us')
 rateUs.addEventListener("click", function () {
   page3.classList.add('hidden')
   page4.classList.remove('hidden')
 });
-
-
-
-
-
-
-
-
-
 
 
 
@@ -435,12 +361,6 @@ function checkIfStarsSelected() {
     window.location.href = 'https://epicode.com/it/';
   }
 } 
-
-
-
-
-
-
 
 
 
@@ -605,7 +525,7 @@ new Chart(myChart, {
     datasets: [
       {
         label: "",
-        data: [2, 1], ////collegare array che contengono risposte giuste e sbagliate
+        data: [percentualeGiuste, percentualeSbagliate], ////collegare array che contengono risposte giuste e sbagliate
           backgroundColor: ["#C2128D", "#04FFFF"]
       },
     ],
