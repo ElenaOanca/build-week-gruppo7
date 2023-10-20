@@ -269,98 +269,32 @@ const questions = [
   },
   
 ];
-
-// Variabile per il numero totale di domande
-const numTotalQuestions = 10;
-
-let currentQuestionIndex = 0; // Indice della domanda corrente
-const countAnswer = []; // Conta risposte
-let contatoreGiuste = 0;
-let contatoreSbagliate = 0;
-let contatoreOmesse = 0;
-
-document.addEventListener("DOMContentLoaded", function () {
-  const pagina = document.getElementById("domanda");
-  const qButton = document.getElementById("nextQuestion");
-
-  let selectedAnswer = null;
-  let isLastQuestion = false;
-
-  // Funzione mostra domanda corrente
-  mostraDomandaCorrente();
-
-  function mostraDomandaCorrente() {
-    pagina.innerHTML = "";
-    qButton.innerHTML = "";
-
-    if (isLastQuestion) {
-      const percentualeGiuste = (contatoreGiuste / numTotalQuestions) * 100;
-      const percentualeSbagliate = (contatoreSbagliate / numTotalQuestions) * 100;
-      const percentualeOmesse = (contatoreOmesse / numTotalQuestions) * 100;
-
-      // Nascondi il contenuto di "page2" e mostra "page3"
-      document.querySelector(".page2").classList.add("hidden");
-      document.querySelector(".page3").classList.remove("hidden");
-
-      // Inserisci le percentuali corrette, sbagliate e omesse nella pagina
-      document.getElementById("percentualeGiuste").innerText = `Risposte corrette: ${percentualeGiuste.toFixed(2)}%`;
-      document.getElementById("percentualeSbagliate").innerText = `Risposte sbagliate: ${percentualeSbagliate.toFixed(2)}%`;
-      document.getElementById("percentualeOmesse").innerText = `Risposte omesse: ${percentualeOmesse.toFixed(2)}%`;
-
-      // Cambia il testo del pulsante in "PROCEED"
-      qButton.innerText = "PROCEED";
-      qButton.addEventListener("click", function () {
-        // Qui puoi aggiungere il codice per proseguire con l'azione successiva
-        // ad esempio, reindirizzando l'utente a una nuova pagina
-        window.location.href = "pagina_successiva.html";
-      });
-      return;
-    }
-
-    // Crea div per mostrare le domande
-    const divDomanda = document.createElement("div");
-    divDomanda.innerText = questions[currentQuestionIndex].question;
-    // Imposta uno stile per il background bianco
-    divDomanda.style.backgroundColor = "white";
-    divDomanda.style.padding = "10px"; // Aggiungi padding per migliorare l'aspetto
-    pagina.appendChild(divDomanda);
-
-    if (questions[currentQuestionIndex].type === "multiple") {
-      mostraBottoniRisposte(currentQuestionIndex);
-    } else {
-      mostraBottoniVeroFalso(currentQuestionIndex);
-    }
-
-    // Crea bottone prossima domanda
-    const divQuestion = document.getElementById("nextQuestion");
-    const avantiButton = document.createElement("button");
-    avantiButton.innerText = "PROSSIMA";
-    const spanButton = document.createElement("span");
-    spanButton.classList.add("fas", "fa-arrow-right");
-    avantiButton.appendChild(spanButton);
-    divQuestion.appendChild(avantiButton);
-
-    avantiButton.addEventListener("click", function () {
-      if (selectedAnswer !== null) {
-        gestisciRisposta(selectedAnswer, questions[currentQuestionIndex].correct_answer);
-        selectedAnswer = null;
-        currentQuestionIndex++;
-        if (currentQuestionIndex === numTotalQuestions - 1) {
-          // Quando si arriva all'ultima domanda, imposta isLastQuestion su true
-          isLastQuestion = true;
-        }
-        mostraDomandaCorrente();
-      }
-    });
-  }
-
-  // Funzione per mostrare i bottoni delle risposte a scelta multipla
-  function mostraBottoniRisposte(questNumber) {
+function creaQuiz(domande) {
+  // Crea la pagina del quiz
+  const pagina = document.createElement("div");
+  pagina.classList.add("quiz");
+  // Crea il titolo del quiz
+  const titolo = document.createElement("h1");
+  titolo.innerText = "Quiz";
+  pagina.appendChild(titolo);
+  // Crea la sezione delle domande
+  const sezioneDomande = document.createElement("div");
+  sezioneDomande.classList.add("domande");
+  pagina.appendChild(sezioneDomande);
+  // Crea le domande
+  for (let i = 0; i < domande.length; i++) {
+    const domanda = domande[i];
+    // Crea il testo della domanda
+    const testoDomanda = document.createElement("p");
+    testoDomanda.innerText = domanda.testo;
+    sezioneDomande.appendChild(testoDomanda);
+    // Crea le risposte
     const divRisposte = document.createElement("div");
-    const risposte = [questions[questNumber].correct_answer, ...questions[questNumber].incorrect_answers];
-    risposte.sort(() => Math.random() - 0.5);
-
-    for (let risposta of risposte) {
+    divRisposte.classList.add("risposte");
+    sezioneDomande.appendChild(divRisposte);
+    // Crea i bottoni delle risposte
+    for (let j = 0; j < domanda.risposte.length; j++) {
+      const risposta = domanda.risposte[j];
       const button = document.createElement("button");
       button.innerText = risposta;
       button.classList.add("risposte");
@@ -369,55 +303,20 @@ document.addEventListener("DOMContentLoaded", function () {
         if (selectedAnswer === null) {
           selectedAnswer = risposta;
           // Puoi aggiungere uno stile visivo per evidenziare la risposta selezionata
-          button.style.backgroundColor = "white";
+          button.style.backgroundColor = "lightblue";
         }
       });
     }
-
-    pagina.appendChild(divRisposte);
   }
-
-  // Funzione per mostrare i bottoni Vero/Falso
-  function mostraBottoniVeroFalso(questNumber) {
-    const divRisposte = document.createElement("div");
-    const button1 = creaBottone("True");
-    const button2 = creaBottone("False");
-
-    divRisposte.appendChild(button1);
-    divRisposte.appendChild(button2);
-
-    pagina.appendChild(divRisposte);
-  }
-
-  // Funzione per creare un bottone per le risposte
-  function creaBottone(testo) {
-    const button = document.createElement("button");
-    button.innerText = testo;
-    button.classList.add("risposte");
-    button.addEventListener("click", function () {
-      if (selectedAnswer === null) {
-        selectedAnswer = testo;
-        // Puoi aggiungere uno stile visivo per evidenziare la risposta selezionata
-        button.style.backgroundColor = "white";
-      }
-    });
-    return button;
-  }
-
-  // Funzione per gestire la risposta
-  function gestisciRisposta(risposta, rispostaCorretta) {
-    if (!risposta) {
-      contatoreOmesse++;
-    } else if (risposta !== rispostaCorretta) {
-      contatoreSbagliate++;
-    } else {
-      contatoreGiuste++;
-    }
-  }
-});
-
-
-
+  // Crea il pulsante "Prossima"
+  const pulsanteProssima = document.createElement("button");
+  pulsanteProssima.innerText = "Prossima";
+  pulsanteProssima.classList.add("prossima");
+  pagina.appendChild(pulsanteProssima);
+  // Crea il pulsante "Fine"
+  const pulsanteFine = document.createElement("button");
+  pulsanteFine.innerText = "Fine";
+  puls
 
 
 
