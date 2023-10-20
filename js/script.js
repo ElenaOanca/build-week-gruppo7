@@ -26,19 +26,7 @@ const page4= document.getElementById('page4')
 
 
 
-const proceedButton = document.querySelector(".proceedButton");
 
-proceedButton.addEventListener("click", function () {
-  const checkBox = document.querySelector("#myCheckbox");
-
-  if (checkBox.checked) {
-    page1.classList.add('hidden')
-    page2.classList.remove('hidden')
-  } else {
-    // Se la casella di controllo non è selezionata,  alert
-    alert("Devi flaggare il checkbox per procedere.");
-  }
-});
 
 
 
@@ -178,153 +166,163 @@ const questions = [
     correct_answer: "Java",
     incorrect_answers: ["Python", "C", "Jakarta"],
   },
-
-  {
-    category: "Science: Computers",
-    type: "multiple",
-    difficulty: "easy",
-    question: "What is the primary purpose of an operating system?",
-    correct_answer: "Managing hardware and software resources",
-    incorrect_answers: [
-      "Playing games",
-      "Browsing the internet",
-      "Sending emails",
-    ],
-  },
-  {
-    category: "Science: Computers",
-    type: "boolean",
-    difficulty: "easy",
-    question: "Java is an interpreted programming language.",
-    correct_answer: "False",
-    incorrect_answers: ["True"],
-  },
-  {
-    category: "Science: Computers",
-    type: "multiple",
-    difficulty: "easy",
-    question: "What does HTML stand for?",
-    correct_answer: "Hypertext Markup Language",
-    incorrect_answers: [
-      "Hyper Text Makeup Language",
-      "High-Level Text Language",
-      "Home Tool Markup Language",
-    ],
-  },
-  {
-    category: "Science: Computers",
-    type: "multiple",
-    difficulty: "easy",
-    question: "Which company developed the C# programming language?",
-    correct_answer: "Microsoft",
-    incorrect_answers: ["Apple", "Google", "Oracle"],
-  },
-  {
-    category: "Science: Computers",
-    type: "boolean",
-    difficulty: "easy",
-    question: "A gigabyte is larger than a megabyte.",
-    correct_answer: "True",
-    incorrect_answers: ["False"],
-  },
-  {
-    category: "Science: Computers",
-    type: "multiple",
-    difficulty: "easy",
-    question: "What does SQL stand for?",
-    correct_answer: "Structured Query Language",
-    incorrect_answers: ["Simple Query Language", "Software Quality Language", "System Query Language"],
-  },
-  {
-    category: "Science: Computers",
-    type: "multiple",
-    difficulty: "easy",
-    question: "Which programming language is known for its use in data analysis and scientific computing?",
-    correct_answer: "Python",
-    incorrect_answers: ["C++", "Java", "R"],
-  },
-  {
-    category: "Science: Computers",
-    type: "boolean",
-    difficulty: "easy",
-    question: "JavaScript is a compiled language.",
-    correct_answer: "False",
-    incorrect_answers: ["True"],
-  },
-  {
-    category: "Science: Computers",
-    type: "multiple",
-    difficulty: "easy",
-    question: "What is the main function of an algorithm in computer science?",
-    correct_answer: "Solving a specific problem",
-    incorrect_answers: ["Generating random numbers", "Printing text on the screen", "Playing music"],
-  },
-  {
-    category: "Science: Computers",
-    type: "multiple",
-    difficulty: "easy",
-    question: "Which web browser was developed by Mozilla?",
-    correct_answer: "Firefox",
-    incorrect_answers: ["Chrome", "Internet Explorer", "Safari"],
-  },
-  
 ];
-function creaQuiz(domande) {
-  // Crea la pagina del quiz
-  const pagina = document.createElement("div");
-  pagina.classList.add("quiz");
-  // Crea il titolo del quiz
-  const titolo = document.createElement("h1");
-  titolo.innerText = "Quiz";
-  pagina.appendChild(titolo);
-  // Crea la sezione delle domande
-  const sezioneDomande = document.createElement("div");
-  sezioneDomande.classList.add("domande");
-  pagina.appendChild(sezioneDomande);
-  // Crea le domande
-  for (let i = 0; i < domande.length; i++) {
-    const domanda = domande[i];
-    // Crea il testo della domanda
-    const testoDomanda = document.createElement("p");
-    testoDomanda.innerText = domanda.testo;
-    sezioneDomande.appendChild(testoDomanda);
-    // Crea le risposte
+// Variabili globali
+let currentQuestionIndex;
+const countAnswer = []; // Un array per tener traccia delle risposte date
+let risposteNonDate = 0; // Contatore delle risposte non date
+let domandeMostrate = 0; // Contatore delle domande mostrate
+
+// Funzione per mostrare la domanda corrente
+function mostraDomandaCorrente(pagina, qButton) {
+  pagina.innerHTML = "";
+  qButton.innerHTML = "";
+  if (domandeMostrate != 0){
+    destroyTimer()
+  }
+  update()
+
+  // Verifica se ci sono ancora domande da mostrare
+  if (domandeMostrate < 10) {
+    currentQuestionIndex = Math.floor(Math.random() * questions.length);
+    domandeMostrate++;
+    countAnswer.push({ answered: false });
+
+    // Creazione di un elemento per visualizzare la domanda corrente
+    const divDomanda = document.createElement("div");
+    divDomanda.innerText = questions[currentQuestionIndex].question;
+    pagina.appendChild(divDomanda);
+
+    // Verifica se la domanda è di tipo "multiple" o "true/false"
+    if (questions[currentQuestionIndex].type === "multiple") {
+      mostraBottoniRisposte(questions[currentQuestionIndex], pagina);
+    } else {
+      mostraBottoniVeroFalso(questions[currentQuestionIndex], pagina);
+    }
+
+    // Creazione di un pulsante "PROSSIMO"
+    const divQuestion = document.getElementById("nextQuestion");
+    const avantiButton = document.createElement("button");
+    avantiButton.innerText = "PROSSIMO";
+    const spanButton = document.createElement("span");
+    spanButton.classList.add("fas", "fa-arrow-right");
+    avantiButton.appendChild(spanButton);
+    divQuestion.appendChild(avantiButton);
+
+    // Gestione del click sul pulsante "PROSSIMO"
+    avantiButton.addEventListener("click", function () {
+      // Verifica se la domanda attuale non è stata già risposta
+      if (!countAnswer[domandeMostrate - 1].answered) {
+        risposteNonDate++;
+      }
+      mostraDomandaCorrente();
+    });
+  } else {
+    // L'utente ha risposto a tutte le 10 domande
+    // Calcolo delle percentuali di risposte giuste, sbagliate e non date
+    const percentualeGiuste = (contatoreGiuste / 10) * 100;
+    const percentualeSbagliate = ((contatoreSbagliate + risposteNonDate) / 10) * 100;
+    console.log("Percentuale risposte giuste: " + percentualeGiuste);
+    console.log("Percentuale risposte sbagliate (inclusi non dati): " + percentualeSbagliate);
+    page2.classList.add('hidden');
+    page3.classList.remove('hidden');
+  }
+}
+
+// Funzione per mostrare i pulsanti di risposta per domande di tipo "multiple"
+function mostraBottoniRisposte(domanda, pagina) {
+  const divRisposte = document.createElement("div");
+  const risposte = [domanda.correct_answer, ...domanda.incorrect_answers];
+  risposte.sort(() => Math.random() - 0.5);
+
+  for (let risposta of risposte) {
+    const button = document.createElement("button");
+    button.innerText = risposta;
+    button.classList.add("risposte");
+    divRisposte.appendChild(button);
+
+    // Gestione del click su un pulsante di risposta
+    button.addEventListener("click", function () {
+      // Verifica se la domanda attuale non è stata già risposta
+      if (!countAnswer[domandeMostrate - 1].answered) {
+        gestisciRisposta(risposta, domanda.correct_answer);
+        countAnswer[domandeMostrate - 1].answered = true;
+      }
+    });
+  }
+
+  pagina.appendChild(divRisposte);
+}
+
+
+  // Funzione per mostrare i pulsanti "True" e "False" per domande di tipo "true/false"
+  function mostraBottoniVeroFalso(domanda, pagina) {
     const divRisposte = document.createElement("div");
-    divRisposte.classList.add("risposte");
-    sezioneDomande.appendChild(divRisposte);
-    // Crea i bottoni delle risposte
-    for (let j = 0; j < domanda.risposte.length; j++) {
-      const risposta = domanda.risposte[j];
-      const button = document.createElement("button");
-      button.innerText = risposta;
-      button.classList.add("risposte");
-      divRisposte.appendChild(button);
-      button.addEventListener("click", function () {
-        if (selectedAnswer === null) {
-          selectedAnswer = risposta;
-          // Puoi aggiungere uno stile visivo per evidenziare la risposta selezionata
-          button.style.backgroundColor = "lightblue";
-        }
-      });
+    const button1 = creaBottone("True");
+    const button2 = creaBottone("False");
+
+    divRisposte.appendChild(button1);
+    divRisposte.appendChild(button2);
+    pagina.appendChild(divRisposte);
+  }
+
+  // Funzione per creare un pulsante di risposta
+  function creaBottone(testo) {
+    const button = document.createElement("button");
+    button.innerText = testo;
+    button.classList.add("risposte");
+    button.addEventListener("click", function () {
+      // Verifica se la domanda attuale non è stata già risposta
+      if (!countAnswer[domandeMostrate - 1].answered) {
+        gestisciRisposta(testo, questions[currentQuestionIndex].correct_answer);
+        countAnswer[domandeMostrate - 1].answered = true;
+      }
+    });
+    return button;
+  }
+
+  // Funzione per gestire la risposta data dall'utente
+  function gestisciRisposta(risposta, rispostaCorretta) {
+    if (risposta === rispostaCorretta) {
+      contatoreGiuste++;
+      console.log("Risposte corrette: " + contatoreGiuste);
+    } else {
+      if (risposta !== "") {
+        contatoreSbagliate++;
+      }
+      console.log("Risposte sbagliate: " + contatoreSbagliate);
     }
   }
-  // Crea il pulsante "Prossima"
-  const pulsanteProssima = document.createElement("button");
-  pulsanteProssima.innerText = "Prossima";
-  pulsanteProssima.classList.add("prossima");
-  pagina.appendChild(pulsanteProssima);
-  // Crea il pulsante "Fine"
-  const pulsanteFine = document.createElement("button");
-  pulsanteFine.innerText = "Fine";
-  puls
 
+// Funzione principale che si attiva quando la pagina è completamente caricata
+document.addEventListener("DOMContentLoaded", function () {
+  const pagina = document.getElementById("domanda"); // Otteniamo l'elemento della domanda
+  const qButton = document.getElementById("nextQuestion"); // Otteniamo il pulsante "PROSSIMO"
 
+  // Array che contiene le risposte corrette per ciascuna domanda
+  const correctAnswer = questions.map((question) => question.correct_answer);
+  let contatoreGiuste = 0; // Contatore delle risposte corrette
+  let contatoreSbagliate = 0; // Contatore delle risposte sbagliate
 
-
-
-
-
-
+  
+  const proceedButton = document.querySelector(".proceedButton");
+  
+  proceedButton.addEventListener("click", function () {
+    const checkBox = document.querySelector("#myCheckbox");
+    
+    if (checkBox.checked) {
+      page1.classList.add('hidden')
+      page2.classList.remove('hidden')
+      // Avvia mostrare la prima domanda
+      mostraDomandaCorrente(pagina, qButton)
+    //mostraDomandaCorrente();
+  } else {
+    // Se la casella di controllo non è selezionata,  alert
+    alert("Devi flaggare il checkbox per procedere.");
+  }
+});
+  
+});
 
 
 /****************************************************PAGINA RISULTATO ************************************************************/
@@ -450,7 +448,7 @@ function checkIfStarsSelected() {
 
 /***************************************************************************  TIMER  *************************************************************/
  /// FUNZIONE TIMER
- function startsTimer(){
+
 var width = 400,
 height = 400,
 timePassed = 0,
@@ -499,7 +497,11 @@ var label = field.append("text")
 .attr("class", "label")
 .attr("dy", ".35em");
 
-(function update() {
+field.append('text')
+.text((d)=> 'testsecondi')
+.attr('class','x')
+
+function update() {
 
 field
   .each(function(d) {
@@ -524,7 +526,7 @@ if (timePassed <= timeLimit)
 else
   destroyTimer();
 
-})();
+};
 
 function pulseText() {
 back.classed("pulse", true);
@@ -545,30 +547,7 @@ label.transition()
   .attr("transform", "translate(0," + -10 + ")");
 }
 
-function destroyTimer() {
-label.transition()
-  .ease("back")
-  .duration(700)
-  .style("opacity", "0")
-  .style("font-size", "5")
-  .attr("transform", "translate(0," + -40 + ")")
-  .each("end", function() {
-    field.selectAll("text").remove()
-  });
 
-path.transition()
-  .ease("back")
-  .duration(700)
-  .attr("d", nilArc);
-
-back.transition()
-  .ease("back")
-  .duration(700)
-  .attr("d", nilArc)
-  .each("end", function() {
-    field.selectAll("path").remove()
-  });
-}
 
 function arcTween(b) {
 var i = d3.interpolate({
@@ -578,4 +557,68 @@ return function(t) {
   return arc(i(t));
 };
 }
- }
+ 
+
+
+ function destroyTimer() {
+  label.transition()
+    .ease("back")
+    .duration(700)
+    .style("opacity", "0")
+    .style("font-size", "5")
+    .attr("transform", "translate(0," + -40 + ")")
+    .each("end", function() {
+      field.selectAll("text").remove()
+    });
+  
+  path.transition()
+    .ease("back")
+    .duration(700)
+    .attr("d", nilArc);
+  
+  back.transition()
+    .ease("back")
+    .duration(700)
+    .attr("d", nilArc)
+    .each("end", function() {
+      field.selectAll("path").remove()
+    });
+  }
+
+
+
+/*********************************************************************DOUGHNUT *********************************************************************/
+
+function chart(){
+const chartData = {
+  labels: ["Risposte sbagliate", "Risposte corrette"],
+  
+};
+
+const myChart = document.querySelector(".concentric-circle"); //div di riferimento nell'html
+
+
+new Chart(myChart, {
+  type: "doughnut",
+  data: {
+    labels: chartData.labels,
+    datasets: [
+      {
+        label: "",
+        data: [2, 1], ////collegare array che contengono risposte giuste e sbagliate
+          backgroundColor: ["#C2128D", "#04FFFF"]
+      },
+    ],
+  },
+  options: {
+    borderWidth: 2,
+    borderRadius: 2,
+    hoverBorderWidth: 0,
+    cutout: 160,
+    plugins: {
+      legend: {
+        display: false,
+      },
+    },
+  },
+});}
