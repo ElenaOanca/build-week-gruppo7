@@ -310,6 +310,13 @@ li {
     align-items: center;
     gap: 10px;
     padding: 20px;
+    
+}
+
+.domande-generate{
+
+    margin-bottom: 40px;
+
 }
 
 
@@ -328,9 +335,22 @@ li {
     font-family: 'Inter', sans-serif;
     font-size: 1.1rem;
     font-weight: 600;
+    transition: 0.3s;
+    
     
 
 }
+
+.risposte:hover{
+
+    background-color: #ffffffdb;
+    color: #ffffff;
+    box-shadow: 0 0 1cm rgba(0, 255, 255, 0.327);
+
+}
+
+
+
 
 /*.risposte::before {
     
@@ -353,11 +373,12 @@ li {
 
 
 .risposte:nth-child(odd) {
-    margin-right: 5px;
+    margin-right: 25px;
+    
 }
 
 .risposte:nth-child(even) {
-    margin-left: 5px;
+    margin-left: 25px;
 }
 
 #contenuto-pagina-quiz{
@@ -374,6 +395,11 @@ li {
     
 }
 
+.small-font{
+
+    font-size: 3rem;
+
+}
 
 .button-plus-counter{
 
@@ -408,10 +434,18 @@ li {
     border: 2px solid #fff;
     cursor: pointer;
     background: #0c060a28;
+    transition: 0.3s;
    
 
 }
 
+.prossima-domanda:hover{
+
+    background-color: #ffffffdb;
+    color: #462D5F;
+    box-shadow: 0 0 1cm rgba(0, 255, 255, 0.327);
+
+}
 
 
 .fas{
@@ -538,8 +572,14 @@ position: relative;
     border: 2px solid #fff;
     cursor: pointer;
     background: #0c060a28;
+    transition: 0.3s;
 }
 
+.rate-us:hover{
+
+    background-color: #ffffffdb;
+    color: #462D5F;
+    box-shadow: 0 0 1cm rgba(0, 255, 255, 0.327);}
 
 /***************** PAGINA FEEDBACK **************/
 

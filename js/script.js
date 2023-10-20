@@ -9,6 +9,54 @@ const page4= document.getElementById('page4')
 
 /*************************************WELCOME *************************************************************************/
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+const proceedButton = document.querySelector(".proceedButton");
+
+proceedButton.addEventListener("click", function () {
+  const checkBox = document.querySelector("#myCheckbox");
+
+  if (checkBox.checked) {
+    page1.classList.add('hidden')
+    page2.classList.remove('hidden')
+  } else {
+    // Se la casella di controllo non è selezionata,  alert
+    Swal.fire({
+      icon: "warning",
+      text: 'Flag the checkbox to continue'});
+  }
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 /********************************************QUIZ *********************************************************************************************/
 
 
@@ -137,6 +185,12 @@ function mostraDomandaCorrente(pagina, qButton) {
 
     // Creazione di un elemento per visualizzare la domanda corrente
     const divDomanda = document.createElement("div");
+    divDomanda.classList.add("domande-generate");
+    if(questions[currentQuestionIndex].question.length > 60){
+
+      divDomanda.classList.add("small-font")
+
+    }
     divDomanda.innerText = questions[currentQuestionIndex].question;
     pagina.appendChild(divDomanda);
 
@@ -277,6 +331,16 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
 
+
+
+
+
+
+
+
+
+
+
 let rateUs = document.querySelector('.rate-us')
 rateUs.addEventListener("click", function () {
   page3.classList.add('hidden')
@@ -286,6 +350,37 @@ rateUs.addEventListener("click", function () {
 
 
 
+const chartData = {
+  labels: ["Risposte sbagliate", "Risposte corrette"],
+  
+};
+
+const myChart = document.querySelector(".concentric-circle"); //div di riferimento nell'html
+
+new Chart(myChart, {
+  type: "doughnut",
+  data: {
+    labels: chartData.labels,
+    datasets: [
+      {
+        label: "",
+        data: [percentualeGiuste, percentualeSbagliate], ////collegare array che contengono risposte giuste e sbagliate
+          backgroundColor: ["#C2128D", "#04FFFF"]
+      },
+    ],
+  },
+  options: {
+    borderWidth: 2,
+    borderRadius: 2,
+    hoverBorderWidth: 0,
+    cutout: 160,
+    plugins: {
+      legend: {
+        display: false,
+      },
+    },
+  },
+});
 
 /*****************************************************PAGINAFEEDBACK *************************************************************************/
 
@@ -477,68 +572,5 @@ return function(t) {
   return arc(i(t));
 };
 }
- 
+ }
 
-
- function destroyTimer() {
-  label.transition()
-    .ease("back")
-    .duration(700)
-    .style("opacity", "0")
-    .style("font-size", "5")
-    .attr("transform", "translate(0," + -40 + ")")
-    .each("end", function() {
-      field.selectAll("text").remove()
-    });
-  
-  path.transition()
-    .ease("back")
-    .duration(700)
-    .attr("d", nilArc);
-  
-  back.transition()
-    .ease("back")
-    .duration(700)
-    .attr("d", nilArc)
-    .each("end", function() {
-      field.selectAll("path").remove()
-    });
-  }
-
-
-
-/*********************************************************************DOUGHNUT *********************************************************************/
-
-function chart(){
-const chartData = {
-  labels: ["Risposte sbagliate", "Risposte corrette"],
-  
-};
-
-const myChart = document.querySelector(".concentric-circle"); //div di riferimento nell'html
-
-
-new Chart(myChart, {
-  type: "doughnut",
-  data: {
-    labels: chartData.labels,
-    datasets: [
-      {
-        label: "",
-        data: [percentualeGiuste, percentualeSbagliate], ////collegare array che contengono risposte giuste e sbagliate
-          backgroundColor: ["#C2128D", "#04FFFF"]
-      },
-    ],
-  },
-  options: {
-    borderWidth: 2,
-    borderRadius: 2,
-    hoverBorderWidth: 0,
-    cutout: 160,
-    plugins: {
-      legend: {
-        display: false,
-      },
-    },
-  },
-});}
