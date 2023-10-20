@@ -12,10 +12,12 @@
 /************* PAGINA WELCOME **************/
 
 
+
 #main{
 
-    height: 100vh;
+    height: 130vh;
     background-image: url(../assets/images/bg.jpg);
+    background-repeat: repeat;
     background-size: cover;
     color: white;
     padding: 35px 80px 80px 80px;
@@ -28,6 +30,7 @@
     width: 200px;
     height: auto;
     margin-bottom: 60px;
+    cursor: pointer;
    
 
 }
@@ -50,13 +53,13 @@
 .welcome{
 
     margin-bottom: 50px;
+    width: 600px;
 
 }
 
 span{
 
     font-weight: 600;
-
 }
 
 .h5{
@@ -172,9 +175,21 @@ li {
     font-size: 1.3rem;
     font-weight: 700;
     cursor: pointer;
-
+    transition: 0.3s;
   
 }
+
+
+
+.button-page-1-4:hover{
+
+    background-color: #D20094;
+    color: white;
+    box-shadow: 0 0 1cm rgba(0, 255, 255, 0.327);
+
+}
+
+
 
 /* .timer {
     display: flex;
@@ -295,6 +310,13 @@ li {
     align-items: center;
     gap: 10px;
     padding: 20px;
+    
+}
+
+.domande-generate{
+
+    margin-bottom: 40px;
+
 }
 
 
@@ -313,8 +335,24 @@ li {
     font-family: 'Inter', sans-serif;
     font-size: 1.1rem;
     font-weight: 600;
+    transition: 0.3s;
+    
     
 
+}
+
+.risposte:hover{
+
+    background-color: #ffffffdb;
+    color: #ffffff;
+    box-shadow: 0 0 1cm rgba(0, 255, 255, 0.327);
+
+}
+
+.seconds{
+
+    position: absolute;
+    display: flex;
 }
 
 /*.risposte::before {
@@ -338,11 +376,12 @@ li {
 
 
 .risposte:nth-child(odd) {
-    margin-right: 5px;
+    margin-right: 25px;
+    
 }
 
 .risposte:nth-child(even) {
-    margin-left: 5px;
+    margin-left: 25px;
 }
 
 #contenuto-pagina-quiz{
@@ -359,6 +398,11 @@ li {
     
 }
 
+.small-font{
+
+    font-size: 3rem;
+
+}
 
 .button-plus-counter{
 
@@ -380,7 +424,8 @@ li {
 
 }
 
-.prossima-domanda{
+
+.prossima-domanda {
 
     color: white;
     font-weight: 600;
@@ -392,9 +437,19 @@ li {
     border: 2px solid #fff;
     cursor: pointer;
     background: #0c060a28;
+    transition: 0.3s;
    
 
 }
+
+.prossima-domanda:hover{
+
+    background-color: #ffffffdb;
+    color: #462D5F;
+    box-shadow: 0 0 1cm rgba(0, 255, 255, 0.327);
+
+}
+
 
 .fas{
 
@@ -406,14 +461,33 @@ li {
 /************ PAGINA RISULTATO ****************/
 
 
-.contenuto-pagina-risultato{
+#contenuto-pagina-risultato{ 
 
     display: flex;
     flex-direction: column;
+    justify-content: center;
     align-items: center;
+    text-align: center;
+    
 
 }
 
+
+.risultato-test{
+
+    display: flex;
+    align-items: center;
+    
+
+}
+
+.flex{
+
+    flex: 1; 
+    height: 100px;
+    margin: 10px;
+
+}
 
 div > .results{
     font-weight: 600;
@@ -429,43 +503,55 @@ div > .results{
     font-size: 1.6rem;
     font-family: 'Outfit', sans-serif;
     margin-left: 15px;
+    margin-bottom: 35px;
 
 
-}
-
-.risultato-test{
-    display: flex;
-    flex-direction: row;
-    flex-wrap: nowrap;
-    align-items: center;
-    width: 1200px ;
-    margin-top: 50px;
-    margin-bottom: 30px;
-    text-align: center;
-}
-.concentric-circle{
-    border: 60px solid;
-    border-right-color: #C2128D;
-    border-radius: 50%;
-    height: 300px;
-    width: 40%;
-    text-align: center;
-    padding: 30px;
-    margin-left: 60px;
-    margin-right: 60px;
 }
 
 .testi-dentro-cerchio{
 
-    margin-top: 70px;
-    line-height: 1.5;
+    position: absolute;
+    padding-bottom: 50px;
+    font-family: 'Outfit', sans-serif;
+
 
 }
+
+.inner-text-circle{
+
+position: relative;
+
+
+
+}
+
+/* .risultato-test{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-items: center;
+    margin-bottom: 30px;
+    text-align: center;
+}
+*/
+.cerchio-container{
+    
+    height: 500px;
+    width: 1000px;
+    
+
+}
+.concentric-circle{
+
+    border-radius: 100%;
+    box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.627), 0 12px 40px 0 rgba(0, 0, 0, 0.541);
+    transition: 1.5s;
+}
+
 
 .testo-certificato{
 
     margin-top: 30px;
-
 
 }
 
@@ -474,6 +560,7 @@ div > .results{
     font-size: 3rem;
     font-family: 'Outfit', sans-serif;
     width: 30%;
+    padding-top: 50px;
 }
 
 .errate{
@@ -481,21 +568,28 @@ div > .results{
     font-size: 3rem;
     font-family: 'Outfit', sans-serif;
     width: 30%;
+    padding-top: 50px;
 }
 
 .rate-us {
     color: white;
     font-weight: 600;
     font-size: 1.4rem;
-    margin-top: 20px;
+    margin-top: 50px;
     width: 300px;
     height: 80px;
     text-align: center;
     border: 2px solid #fff;
     cursor: pointer;
     background: #0c060a28;
+    transition: 0.3s;
 }
 
+.rate-us:hover{
+
+    background-color: #ffffffdb;
+    color: #462D5F;
+    box-shadow: 0 0 1cm rgba(0, 255, 255, 0.327);}
 
 /***************** PAGINA FEEDBACK **************/
 
