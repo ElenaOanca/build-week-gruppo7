@@ -4,67 +4,7 @@ const page3= document.getElementById('page3')
 const page4= document.getElementById('page4')
 
 
-
-
-
-/*************************************WELCOME *************************************************************************/
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 /********************************************QUIZ *********************************************************************************************/
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 const questions = [
@@ -172,8 +112,32 @@ const countAnswer = []; // Un array per tener traccia delle risposte date
 let risposteNonDate = 0; // Contatore delle risposte non date
 let domandeMostrate = 0; // Contatore delle domande mostrate
 
+ // Array che contiene le risposte corrette per ciascuna domanda
+ const correctAnswer = questions.map((question) => question.correct_answer);
+ let contatoreGiuste = 0; // Contatore delle risposte corrette
+ let contatoreSbagliate = 0; // Contatore delle risposte sbagliate
+
+ const proceedButton = document.querySelector(".proceedButton");
+    
+ proceedButton.addEventListener("click", function () {
+   const checkBox = document.querySelector("#myCheckbox");
+   
+ if (checkBox.checked) {
+     page1.classList.add('hidden')
+     page2.classList.remove('hidden')
+     // Avvia mostrare la prima domanda
+     mostraDomandaCorrente(pagina, qButton)
+   //mostraDomandaCorrente();
+ } else {
+   // Se la casella di controllo non è selezionata,  alert
+   alert("Devi flaggare il checkbox per procedere.");
+ }
+});
+
 // Funzione per mostrare la domanda corrente
 function mostraDomandaCorrente(pagina, qButton) {
+  
+  
   pagina.innerHTML = "";
   qButton.innerHTML = "";
   if (domandeMostrate != 0){
@@ -226,7 +190,18 @@ function mostraDomandaCorrente(pagina, qButton) {
     page2.classList.add('hidden');
     page3.classList.remove('hidden');
   }
+
 }
+
+
+// // Funzione principale che si attiva quando la pagina è completamente caricata
+document.addEventListener("DOMContentLoaded", function () {
+
+  
+const pagina = document.getElementById("domanda"); // Otteniamo l'elemento della domanda
+const qButton = document.getElementById("nextQuestion"); // Otteniamo il pulsante "PROSSIMO"
+  
+
 
 // Funzione per mostrare i pulsanti di risposta per domande di tipo "multiple"
 function mostraBottoniRisposte(domanda, pagina) {
@@ -248,22 +223,23 @@ function mostraBottoniRisposte(domanda, pagina) {
         countAnswer[domandeMostrate - 1].answered = true;
       }
     });
-  }
+  }}
+  
+  
+    function mostraBottoniVeroFalso(domanda, pagina) {
+      const divRisposte = document.createElement("div");
+      const button1 = creaBottone("True");
+      const button2 = creaBottone("False");
 
-  pagina.appendChild(divRisposte);
-}
+      divRisposte.appendChild(button1);
+      divRisposte.appendChild(button2);
+      pagina.appendChild(divRisposte);
+      // pagina.appendChild(divRisposte);
+    }
 
 
   // Funzione per mostrare i pulsanti "True" e "False" per domande di tipo "true/false"
-  function mostraBottoniVeroFalso(domanda, pagina) {
-    const divRisposte = document.createElement("div");
-    const button1 = creaBottone("True");
-    const button2 = creaBottone("False");
 
-    divRisposte.appendChild(button1);
-    divRisposte.appendChild(button2);
-    pagina.appendChild(divRisposte);
-  }
 
   // Funzione per creare un pulsante di risposta
   function creaBottone(testo) {
@@ -293,33 +269,8 @@ function mostraBottoniRisposte(domanda, pagina) {
     }
   }
 
-// Funzione principale che si attiva quando la pagina è completamente caricata
-document.addEventListener("DOMContentLoaded", function () {
-  const pagina = document.getElementById("domanda"); // Otteniamo l'elemento della domanda
-  const qButton = document.getElementById("nextQuestion"); // Otteniamo il pulsante "PROSSIMO"
-
-  // Array che contiene le risposte corrette per ciascuna domanda
-  const correctAnswer = questions.map((question) => question.correct_answer);
-  let contatoreGiuste = 0; // Contatore delle risposte corrette
-  let contatoreSbagliate = 0; // Contatore delle risposte sbagliate
-
-  
-  const proceedButton = document.querySelector(".proceedButton");
-  
-  proceedButton.addEventListener("click", function () {
-    const checkBox = document.querySelector("#myCheckbox");
     
-    if (checkBox.checked) {
-      page1.classList.add('hidden')
-      page2.classList.remove('hidden')
-      // Avvia mostrare la prima domanda
-      mostraDomandaCorrente(pagina, qButton)
-    //mostraDomandaCorrente();
-  } else {
-    // Se la casella di controllo non è selezionata,  alert
-    alert("Devi flaggare il checkbox per procedere.");
-  }
-});
+  
   
 });
 
