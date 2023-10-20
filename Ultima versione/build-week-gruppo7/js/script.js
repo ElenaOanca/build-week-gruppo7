@@ -227,6 +227,10 @@ function mostraDomandaCorrente(pagina, qButton) {
     const percentualeSbagliate = ((contatoreSbagliate + risposteNonDate) / 10) * 100;
     console.log("Percentuale risposte giuste: " + percentualeGiuste);
     console.log("Percentuale risposte sbagliate (inclusi non dati): " + percentualeSbagliate);
+    const percentualeGiusteElement = document.getElementById("percentualeGiuste");
+    const percentualeSbagliateElement = document.getElementById("percentualeSbagliate");
+    percentualeGiusteElement.textContent = percentualeGiuste.toFixed(2); // Puoi anche arrotondare il valore a due decimali
+    percentualeSbagliateElement.textContent = percentualeSbagliate.toFixed(2);
     page2.classList.add('hidden');
     page3.classList.remove('hidden');
   }
@@ -248,8 +252,10 @@ function mostraBottoniRisposte(domanda, pagina) {
     button.addEventListener("click", function () {
       // Verifica se la domanda attuale non è stata già risposta
       if (!countAnswer[domandeMostrate - 1].answered) {
+        button.classList.add("clicked");
         gestisciRisposta(risposta, domanda.correct_answer);
         countAnswer[domandeMostrate - 1].answered = true;
+        
       }
     });
   }
@@ -275,6 +281,7 @@ function mostraBottoniRisposte(domanda, pagina) {
     button.innerText = testo;
     button.classList.add("risposte");
     button.addEventListener("click", function () {
+      button.classList.add("clicked");
       // Verifica se la domanda attuale non è stata già risposta
       if (!countAnswer[domandeMostrate - 1].answered) {
         gestisciRisposta(testo, questions[currentQuestionIndex].correct_answer);
@@ -618,7 +625,7 @@ new Chart(myChart, {
     borderWidth: 2,
     borderRadius: 2,
     hoverBorderWidth: 0,
-    cutout: 160,
+    cutout: 110,
     plugins: {
       legend: {
         display: false,

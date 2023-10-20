@@ -349,11 +349,8 @@ li {
 
 }
 
-.seconds{
-
-    position: absolute;
-    display: flex;
-}
+.risposte:active, .risposte.clicked {
+    background-color: #ffffff}
 
 /*.risposte::before {
     
@@ -476,12 +473,13 @@ li {
 .risultato-test{
 
     display: flex;
+    flex-wrap: wrap;
     align-items: center;
     
 
 }
 
-.flex{
+.flex {
 
     flex: 1; 
     height: 100px;
@@ -522,7 +520,6 @@ div > .results{
 position: relative;
 
 
-
 }
 
 /* .risultato-test{
@@ -536,7 +533,7 @@ position: relative;
 */
 .cerchio-container{
     
-    height: 500px;
+    height: 300px;
     width: 1000px;
     
 
@@ -546,6 +543,8 @@ position: relative;
     border-radius: 100%;
     box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.627), 0 12px 40px 0 rgba(0, 0, 0, 0.541);
     transition: 1.5s;
+    margin-left: 50px;
+    
 }
 
 
@@ -555,27 +554,32 @@ position: relative;
 
 }
 
-.corrette{
 
-    font-size: 3rem;
-    font-family: 'Outfit', sans-serif;
-    width: 30%;
+.corrette, .errate{
+
+    width: 1px;
     padding-top: 50px;
+
 }
 
-.errate{
+.corrette, #percentualeGiuste {
 
     font-size: 3rem;
     font-family: 'Outfit', sans-serif;
     width: 30%;
-    padding-top: 50px;
+}
+
+.errate, #percentualeSbagliate{
+
+    font-size: 3rem;
+    font-family: 'Outfit', sans-serif;
+    width: 30%;
 }
 
 .rate-us {
     color: white;
     font-weight: 600;
     font-size: 1.4rem;
-    margin-top: 50px;
     width: 300px;
     height: 80px;
     text-align: center;
@@ -583,6 +587,8 @@ position: relative;
     cursor: pointer;
     background: #0c060a28;
     transition: 0.3s;
+    margin-top: 50px;
+
 }
 
 .rate-us:hover{
