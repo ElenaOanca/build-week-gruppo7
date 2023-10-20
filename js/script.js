@@ -13,7 +13,20 @@ const page4= document.getElementById('page4')
 
 
 
-const proceedButton = document.getElementById("proceedButton");
+
+
+
+
+
+
+
+
+
+
+
+
+
+const proceedButton = document.querySelector(".proceedButton");
 
 proceedButton.addEventListener("click", function () {
   const checkBox = document.querySelector("#myCheckbox");
@@ -29,7 +42,38 @@ proceedButton.addEventListener("click", function () {
 
 
 
-/********************************************QUIZ *************************************************/
+
+
+
+
+
+
+
+
+
+
+
+
+
+/********************************************QUIZ *********************************************************************************************/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -139,31 +183,21 @@ const questions = [
 
 let currentQuestionIndex = Math.floor(Math.random() * questions.length); // Indice della domanda corrente
 const countAnswer = [];
+
 document.addEventListener("DOMContentLoaded", function () {
   const pagina = document.getElementById("domanda");
   const qButton = document.getElementById("nextQuestion");
-  
-  //const risposte = document.getElementById("risposte");
+
+  const correctAnswer = questions.map((question) => question.correct_answer);
+  let contatoreGiuste = 0;
+  let contatoreSbagliate = 0;
+
   mostraDomandaCorrente();
-  
-  const correctAnswer = [];
-  //const contatoreGiuste = [];
-  //const contatoreSbagliate = [];
-  for (let index = 0; index < questions.length; index++) {
-    const element = questions[index].correct_answer;
-    correctAnswer.push(element);
-  }
-  
-  
-  //funzione creazione domande
+
   function mostraDomandaCorrente() {
-    
-    
     pagina.innerHTML = "";
     qButton.innerHTML = "";
-    
-    
-    
+
     const divDomanda = document.createElement("div");
     divDomanda.innerText = questions[currentQuestionIndex].question;
     pagina.appendChild(divDomanda);
@@ -173,58 +207,37 @@ document.addEventListener("DOMContentLoaded", function () {
     } else {
       mostraBottoniVeroFalso(currentQuestionIndex);
     }
-    
-    if (currentQuestionIndex === 0) {
-      const divQuestion = document.getElementById("nextQuestion");
-      const avantiButton = document.createElement("button");
-      avantiButton.innerText = "PROSSIMO";
-      const spanButton = document.createElement("span");
-      spanButton.classList.add("fas", "fa-arrow-right");
-      avantiButton.appendChild(spanButton);
-      divQuestion.appendChild(avantiButton);
-      avantiButton.addEventListener("click", function () {
-        
-        if (countAnswer.length === 10) {
-          window.location.assign("risultato.html");
-        } else {
-          
-          currentQuestionIndex = Math.floor(Math.random() * questions.length);
-          let countObj = {};
-          countAnswer.push(countObj);
-          //console.log(countAnswer);
-          mostraDomandaCorrente();
-        }
-      });
-      pagina.appendChild(avantiButton);
-    } else if (currentQuestionIndex) { //< questions.length - 1) {
-      const divQuestion = document.getElementById("nextQuestion");
-      const avantiButton = document.createElement("button");
-      avantiButton.innerText = "PROSSIMO";
-      const spanButton = document.createElement("span");
-      spanButton.classList.add("fas", "fa-arrow-right");
-      avantiButton.appendChild(spanButton);
-      divQuestion.appendChild(avantiButton)
+
+    const divQuestion = document.getElementById("nextQuestion");
+    const avantiButton = document.createElement("button");
+    avantiButton.innerText = "PROSSIMA ";
+    const spanButton = document.createElement("span");
+    spanButton.classList.add("fas", "fa-arrow-right");
+    avantiButton.classList.add("prossima-domanda")
+    avantiButton.appendChild(spanButton);
+    divQuestion.appendChild(avantiButton);
+
+    avantiButton.addEventListener("click", function () {
       if (countAnswer.length === 10) {
-        avantiButton.addEventListener("click", function () {
-          page2.classList.add('hidden')
-          page3.classList.remove('hidden')
-        });
+        const percentualeGiuste = (contatoreGiuste / 10) * 100;
+        const percentualeSbagliate = (contatoreSbagliate / 10) * 100;
+        console.log(percentualeGiuste);
+        console.log(percentualeSbagliate)
+        page2.classList.add('hidden')
+        page3.classList.remove('hidden')
+        return percentualeGiuste, percentualeSbagliate
       } else {
-        avantiButton.addEventListener("click", function () {
-          currentQuestionIndex = Math.floor(Math.random() * questions.length);
-          let countObj = {};
-          countAnswer.push(countObj);
-          
-          mostraDomandaCorrente();
-        });
+        currentQuestionIndex = Math.floor(Math.random() * questions.length);
+        countAnswer.push({});
+        mostraDomandaCorrente();
       }
-      //pagina.appendChild(avantiButton);
-    }
+    });
   }
+
+
+
   
   function mostraBottoniRisposte(questNumber) {
-    
-    
     const divRisposte = document.createElement("div");
     const risposte = [questions[questNumber].correct_answer, ...questions[questNumber].incorrect_answers];
     risposte.sort(() => Math.random() - 0.5);
@@ -233,52 +246,68 @@ document.addEventListener("DOMContentLoaded", function () {
       const button = document.createElement("button");
       button.innerText = risposta;
       button.classList.add("risposte");
-      // button.addEventListener("click", function(){
-        //   if (risposta === questions[questNumber].correct_answer){
-          //     let contatore = {};
-          //     contatoreGiuste.push(contatore);
-          //   }else {
-            //     let contatore = {};
-            //     contatoreSbagliate.push(contatore);
-            //   }
-            // });
-            divRisposte.appendChild(button);
-          }
-          
-          pagina.appendChild(divRisposte);
-        }
-        
-        function mostraBottoniVeroFalso(questNumber) {
-          
-          
-          const divRisposte = document.createElement("div");
-          const button1 = document.createElement("button");
-          button1.classList.add("risposte");
-          const button2 = document.createElement("button");
-          button2.classList.add("risposte");
-          
-          button1.innerText = "True";
-          button2.innerText = "False";
-          
-          button1.addEventListener("click", function () {
-            if (risposta === questions[questNumber].correct_answer) {
-        let contatore = {};
-        contatoreGiuste.push(contatore);
-      } else {
-        let contatore = {};
-        contatoreSbagliate.push(contatore);
-      }
-    });
-    
-    
+      divRisposte.appendChild(button);
+      button.addEventListener("click", function () {
+        gestisciRisposta(risposta, questions[questNumber].correct_answer);
+      });
+    }
+
+    pagina.appendChild(divRisposte);
+  }
+
+  function mostraBottoniVeroFalso(questNumber) {
+    const divRisposte = document.createElement("div");
+    const button1 = creaBottone("True");
+    const button2 = creaBottone("False");
+
     divRisposte.appendChild(button1);
     divRisposte.appendChild(button2);
     
     pagina.appendChild(divRisposte);
   }
+
+  function creaBottone(testo) {
+    const button = document.createElement("button");
+    button.innerText = testo;
+    button.classList.add("risposte");
+    button.addEventListener("click", function () {
+      gestisciRisposta(testo, questions[currentQuestionIndex].correct_answer);
+    });
+    return button;
+  }
+
+  function gestisciRisposta(risposta, rispostaCorretta) {
+    if (risposta === rispostaCorretta) {
+      contatoreGiuste++;
+      console.log("Risposte corrette: " + contatoreGiuste);
+    } else {
+      contatoreSbagliate++;
+      console.log("Risposte sbagliate: " + contatoreSbagliate);
+    }
+  }
 });
 
+
+
+
+
+
+
+
+
+
+
+
+
 /****************************************************PAGINA RISULTATO ************************************************************/
+
+
+
+
+
+
+
+
 
 
 
@@ -292,6 +321,13 @@ rateUs.addEventListener("click", function () {
   page3.classList.add('hidden')
   page4.classList.remove('hidden')
 });
+
+
+
+
+
+
+
 
 
 
@@ -373,3 +409,145 @@ function checkIfStarsSelected() {
     window.location.href = 'https://epicode.com/it/';
   }
 } 
+
+
+
+
+
+
+
+
+
+
+
+/***************************************************************************  TIMER  *************************************************************/
+ /// FUNZIONE TIMER
+ function startsTimer(){
+var width = 400,
+height = 400,
+timePassed = 0,
+timeLimit = 60;
+
+var fields = [{
+value: timeLimit,
+size: timeLimit,
+update: function() {
+  return timePassed = timePassed + 1;
+}
+}];
+
+var nilArc = d3.svg.arc()
+.innerRadius(width / 3 - 133)
+.outerRadius(width / 3 - 133)
+.startAngle(0)
+.endAngle(2 * Math.PI);
+
+var arc = d3.svg.arc()
+.innerRadius(width / 3 - 55)
+.outerRadius(width / 3 - 25)
+.startAngle(0)
+.endAngle(function(d) {
+  return ((d.value / d.size) * 2 * Math.PI);
+});
+
+var svg = d3.select(".timer").append("svg")
+.attr("width", width)
+.attr("height", height);
+
+var field = svg.selectAll(".field")
+.data(fields)
+.enter().append("g")
+.attr("transform", "translate(" + width / 2 + "," + height / 2 + ")")
+.attr("class", "field");
+
+var back = field.append("path")
+.attr("class", "path path--background")
+.attr("d", arc);
+
+var path = field.append("path")
+.attr("class", "path path--foreground");
+
+var label = field.append("text")
+.attr("class", "label")
+.attr("dy", ".35em");
+
+(function update() {
+
+field
+  .each(function(d) {
+    d.previous = d.value, d.value = d.update(timePassed);
+  });
+
+path.transition()
+  .ease("elastic")
+  .duration(500)
+  .attrTween("d", arcTween);
+
+if ((timeLimit - timePassed) <= 10)
+  pulseText();
+else
+  label
+  .text(function(d) {
+    return d.size - d.value;
+  });
+
+if (timePassed <= timeLimit)
+  setTimeout(update, 1000 - (timePassed % 1000));
+else
+  destroyTimer();
+
+})();
+
+function pulseText() {
+back.classed("pulse", true);
+label.classed("pulse", true);
+
+if ((timeLimit - timePassed) >= 0) {
+  label.style("font-size", "90px")
+    .attr("transform", "translate(0," + +4 + ")")
+    .text(function(d) {
+      return d.size - d.value;
+    });
+}
+
+label.transition()
+  .ease("elastic")
+  .duration(900)
+  .style("font-size", "60px")
+  .attr("transform", "translate(0," + -10 + ")");
+}
+
+function destroyTimer() {
+label.transition()
+  .ease("back")
+  .duration(700)
+  .style("opacity", "0")
+  .style("font-size", "5")
+  .attr("transform", "translate(0," + -40 + ")")
+  .each("end", function() {
+    field.selectAll("text").remove()
+  });
+
+path.transition()
+  .ease("back")
+  .duration(700)
+  .attr("d", nilArc);
+
+back.transition()
+  .ease("back")
+  .duration(700)
+  .attr("d", nilArc)
+  .each("end", function() {
+    field.selectAll("path").remove()
+  });
+}
+
+function arcTween(b) {
+var i = d3.interpolate({
+  value: b.previous
+}, b);
+return function(t) {
+  return arc(i(t));
+};
+}
+ }
