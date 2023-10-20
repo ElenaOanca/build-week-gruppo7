@@ -28,19 +28,6 @@ const page4= document.getElementById('page4')
 
 const proceedButton = document.querySelector(".proceedButton");
 
-proceedButton.addEventListener("click", function () {
-  const checkBox = document.querySelector("#myCheckbox");
-
-  if (checkBox.checked) {
-    page1.classList.add('hidden')
-    page2.classList.remove('hidden')
-  } else {
-    // Se la casella di controllo non Ã¨ selezionata,  alert
-    Swal.fire({
-      icon: "warning",
-      text: 'Flag the checkbox to continue'});
-  }
-});
 
 
 
@@ -180,6 +167,14 @@ const questions = [
     incorrect_answers: ["Python", "C", "Jakarta"],
   },
 ];
+// Variabili globali
+let currentQuestionIndex;
+const countAnswer = []; // Un array per tener traccia delle risposte date
+let risposteNonDate = 0; // Contatore delle risposte non date
+let domandeMostrate = 0; // Contatore delle domande mostrate
+let contatoreGiuste = 0; // Contatore delle risposte corrette
+let contatoreSbagliate = 0; // Contatore delle risposte sbagliate
+let timerRef = null;
 
 
 
@@ -201,12 +196,6 @@ document.addEventListener("DOMContentLoaded", function () {
     qButton.innerHTML = "";
 
     const divDomanda = document.createElement("div");
-    divDomanda.classList.add("domande-generate");
-    if(questions[currentQuestionIndex].question.length > 50){
-
-      divDomanda.classList.add("small-font")
-
-    }
     divDomanda.innerText = questions[currentQuestionIndex].question;
     pagina.appendChild(divDomanda);
 
@@ -218,7 +207,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
     const divQuestion = document.getElementById("nextQuestion");
     const avantiButton = document.createElement("button");
-    avantiButton.innerText = "PROSSIMA ";
+    avantiButton.innerText = "PROSSIMO";
+    avantiButton.classList.add("prossima-domanda")
     const spanButton = document.createElement("span");
     spanButton.classList.add("fas", "fa-arrow-right");
     avantiButton.classList.add("prossima-domanda")
@@ -226,18 +216,42 @@ document.addEventListener("DOMContentLoaded", function () {
     divQuestion.appendChild(avantiButton);
 
     avantiButton.addEventListener("click", function () {
-      if (countAnswer.length === 10) {
-        const percentualeGiuste = (contatoreGiuste / 10) * 100;
-        const percentualeSbagliate = (contatoreSbagliate / 10) * 100;
-        console.log(percentualeGiuste);
-        console.log(percentualeSbagliate)
-        page2.classList.add('hidden')
-        page3.classList.remove('hidden')
-        return percentualeGiuste, percentualeSbagliate
-      } else {
-        currentQuestionIndex = Math.floor(Math.random() * questions.length);
-        countAnswer.push({});
-        mostraDomandaCorrente();
+      // Verifica se la domanda attuale non è stata già risposta
+      if (!countAnswer[domandeMostrate - 1].answered) {
+        risposteNonDate++;
+      }
+      mostraDomandaCorrente(pagina,qButton);
+    });
+  } else {
+    // L'utente ha risposto a tutte le 10 domande
+    // Calcolo delle percentuali di risposte giuste, sbagliate e non date
+    const percentualeGiuste = (contatoreGiuste / 10) * 100;
+    const percentualeSbagliate = ((contatoreSbagliate + risposteNonDate) / 10) * 100;
+    console.log("Percentuale risposte giuste: " + percentualeGiuste);
+    console.log("Percentuale risposte sbagliate (inclusi non dati): " + percentualeSbagliate);
+    page2.classList.add('hidden');
+    page3.classList.remove('hidden');
+  }
+}
+
+// Funzione per mostrare i pulsanti di risposta per domande di tipo "multiple"
+function mostraBottoniRisposte(domanda, pagina) {
+  const divRisposte = document.createElement("div");
+  const risposte = [domanda.correct_answer, ...domanda.incorrect_answers];
+  risposte.sort(() => Math.random() - 0.5);
+
+  for (let risposta of risposte) {
+    const button = document.createElement("button");
+    button.innerText = risposta;
+    button.classList.add("risposte");
+    divRisposte.appendChild(button);
+
+    // Gestione del click su un pulsante di risposta
+    button.addEventListener("click", function () {
+      // Verifica se la domanda attuale non è stata già risposta
+      if (!countAnswer[domandeMostrate - 1].answered) {
+        gestisciRisposta(risposta, domanda.correct_answer);
+        countAnswer[domandeMostrate - 1].answered = true;
       }
     });
   }
@@ -293,6 +307,35 @@ document.addEventListener("DOMContentLoaded", function () {
       console.log("Risposte sbagliate: " + contatoreSbagliate);
     }
   }
+
+// Funzione principale che si attiva quando la pagina è completamente caricata
+document.addEventListener("DOMContentLoaded", function () {
+  const pagina = document.getElementById("domanda"); // Otteniamo l'elemento della domanda
+  const qButton = document.getElementById("nextQuestion"); // Otteniamo il pulsante "PROSSIMO"
+
+  // Array che contiene le risposte corrette per ciascuna domanda
+  const correctAnswer = questions.map((question) => question.correct_answer);
+
+  
+  const proceedButton = document.querySelector(".proceedButton");
+  
+  proceedButton.addEventListener("click", function () {
+    const checkBox = document.querySelector("#myCheckbox");
+    
+    if (checkBox.checked) {
+      page1.classList.add('hidden')
+      page2.classList.remove('hidden')
+      // Avvia mostrare la prima domanda
+      mostraDomandaCorrente(pagina, qButton)
+    //mostraDomandaCorrente();
+  } else {
+    // Se la casella di controllo non è selezionata,  alert
+    Swal.fire({
+      icon: "warning",
+      text: 'Flag the checkbox to continue'});
+  }
+});
+  
 });
 
 
@@ -322,6 +365,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
 
+
+
 let rateUs = document.querySelector('.rate-us')
 rateUs.addEventListener("click", function () {
   page3.classList.add('hidden')
@@ -331,37 +376,6 @@ rateUs.addEventListener("click", function () {
 
 
 
-const chartData = {
-  labels: ["Risposte sbagliate", "Risposte corrette"],
-  
-};
-
-const myChart = document.querySelector(".concentric-circle"); //div di riferimento nell'html
-
-new Chart(myChart, {
-  type: "doughnut",
-  data: {
-    labels: chartData.labels,
-    datasets: [
-      {
-        label: "",
-        data: [1, 2], ////collegare array che contengono risposte giuste e sbagliate
-          backgroundColor: ["#C2128D", "#04FFFF"]
-      },
-    ],
-  },
-  options: {
-    borderWidth: 2,
-    borderRadius: 2,
-    hoverBorderWidth: 0,
-    cutout: 160,
-    plugins: {
-      legend: {
-        display: false,
-      },
-    },
-  },
-});
 
 
 
@@ -529,7 +543,7 @@ else
   });
 
 if (timePassed <= timeLimit)
-  setTimeout(update, 1000 - (timePassed % 1000));
+  timerRef = setTimeout(update, 1000 - (timePassed % 1000));
 else
   destroyTimer();
 
@@ -587,5 +601,73 @@ return function(t) {
   return arc(i(t));
 };
 }
- }
+ 
 
+
+ function destroyTimer() {
+ /* label.transition()
+    .ease("back")
+    .duration(700)
+   // .style("opacity", "0")
+    .style("font-size", "5")
+  //  .attr("transform", "translate(0," + -40 + ")")
+   // .each("end", function() {
+    //  field.selectAll("text").remove()
+   // });
+  
+  path.transition()
+    .ease("back")
+    .duration(700)
+    .attr("d", nilArc);
+  
+  back.transition()
+    .ease("back")
+    .duration(700)
+    .attr("d", nilArc)
+  //  .each("end", function() {
+   //   field.selectAll("path").remove()
+   // });
+   */
+    clearTimeout(timerRef)
+    timePassed = 0;
+    timeLimit = 60;
+  }
+
+
+
+/*********************************************************************DOUGHNUT *********************************************************************/
+
+function chart(){
+const chartData = {
+  labels: ["Risposte sbagliate", "Risposte corrette"],
+  
+};
+
+const myChart = document.querySelector(".concentric-circle"); //div di riferimento nell'html
+
+
+new Chart(myChart, {
+  type: "doughnut",
+  data: {
+    labels: chartData.labels,
+    datasets: [
+      {
+        label: "",
+        data: [2, 1], ////collegare array che contengono risposte giuste e sbagliate
+          backgroundColor: ["#C2128D", "#04FFFF"]
+      },
+    ],
+  },
+  options: {
+    borderWidth: 2,
+    borderRadius: 2,
+    hoverBorderWidth: 0,
+    cutout: 160,
+    plugins: {
+      legend: {
+        display: false,
+      },
+    },
+  },
+});}
+chart()
