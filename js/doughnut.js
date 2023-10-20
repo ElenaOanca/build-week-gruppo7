@@ -1,3 +1,6 @@
+import { percentualeGiuste,percentualeSbagliate } from "./script";
+
+
 const chartData = {
   labels: ["Risposte sbagliate", "Risposte corrette"],
   
@@ -14,7 +17,7 @@ new Chart(myChart, {
     datasets: [
       {
         label: "",
-        data: [2, 1], ////collegare array che contengono risposte giuste e sbagliate
+        data: [percentualeGiuste, percentualeSbagliate], ////collegare array che contengono risposte giuste e sbagliate
           backgroundColor: ["#C2128D", "#04FFFF"]
       },
     ],

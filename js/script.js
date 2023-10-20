@@ -26,7 +26,19 @@ const page4= document.getElementById('page4')
 
 
 
+const proceedButton = document.querySelector(".proceedButton");
 
+proceedButton.addEventListener("click", function () {
+  const checkBox = document.querySelector("#myCheckbox");
+
+  if (checkBox.checked) {
+    page1.classList.add('hidden')
+    page2.classList.remove('hidden')
+  } else {
+    // Se la casella di controllo non è selezionata,  alert
+    alert("Devi flaggare il checkbox per procedere.");
+  }
+});
 
 
 
@@ -166,96 +178,102 @@ const questions = [
     incorrect_answers: ["Python", "C", "Jakarta"],
   },
 ];
+
 // Variabili globali
 let currentQuestionIndex;
 const countAnswer = []; // Un array per tener traccia delle risposte date
 let risposteNonDate = 0; // Contatore delle risposte non date
 let domandeMostrate = 0; // Contatore delle domande mostrate
 
-// Funzione per mostrare la domanda corrente
-function mostraDomandaCorrente(pagina, qButton) {
-  pagina.innerHTML = "";
-  qButton.innerHTML = "";
-  if (domandeMostrate != 0){
-    destroyTimer()
-  }
-  update()
+// Funzione principale che si attiva quando la pagina è completamente caricata
+document.addEventListener("DOMContentLoaded", function () {
+  const pagina = document.getElementById("domanda"); // Otteniamo l'elemento della domanda
+  const qButton = document.getElementById("nextQuestion"); // Otteniamo il pulsante "PROSSIMO"
 
-  // Verifica se ci sono ancora domande da mostrare
-  if (domandeMostrate < 10) {
-    currentQuestionIndex = Math.floor(Math.random() * questions.length);
-    domandeMostrate++;
-    countAnswer.push({ answered: false });
+  // Array che contiene le risposte corrette per ciascuna domanda
+  const correctAnswer = questions.map((question) => question.correct_answer);
+  let contatoreGiuste = 0; // Contatore delle risposte corrette
+  let contatoreSbagliate = 0; // Contatore delle risposte sbagliate
 
-    // Creazione di un elemento per visualizzare la domanda corrente
-    const divDomanda = document.createElement("div");
-    divDomanda.innerText = questions[currentQuestionIndex].question;
-    pagina.appendChild(divDomanda);
+  // Funzione per mostrare la domanda corrente
+  function mostraDomandaCorrente() {
+    pagina.innerHTML = "";
+    qButton.innerHTML = "";
 
-    // Verifica se la domanda è di tipo "multiple" o "true/false"
-    if (questions[currentQuestionIndex].type === "multiple") {
-      mostraBottoniRisposte(questions[currentQuestionIndex], pagina);
+    // Verifica se ci sono ancora domande da mostrare
+    if (domandeMostrate < 10) {
+      currentQuestionIndex = Math.floor(Math.random() * questions.length);
+      domandeMostrate++;
+      countAnswer.push({ answered: false });
+
+      // Creazione di un elemento per visualizzare la domanda corrente
+      const divDomanda = document.createElement("div");
+      divDomanda.innerText = questions[currentQuestionIndex].question;
+      pagina.appendChild(divDomanda);
+
+      // Verifica se la domanda è di tipo "multiple" o "true/false"
+      if (questions[currentQuestionIndex].type === "multiple") {
+        mostraBottoniRisposte(questions[currentQuestionIndex]);
+      } else {
+        mostraBottoniVeroFalso(questions[currentQuestionIndex]);
+      }
+
+      // Creazione di un pulsante "PROSSIMO"
+      const divQuestion = document.getElementById("nextQuestion");
+      const avantiButton = document.createElement("button");
+      avantiButton.innerText = "PROSSIMO";
+      const spanButton = document.createElement("span");
+      spanButton.classList.add("fas", "fa-arrow-right");
+      avantiButton.appendChild(spanButton);
+      divQuestion.appendChild(avantiButton);
+
+      // Gestione del click sul pulsante "PROSSIMO"
+      avantiButton.addEventListener("click", function () {
+        // Verifica se la domanda attuale non è stata già risposta
+        if (!countAnswer[domandeMostrate - 1].answered) {
+          risposteNonDate++;
+        }
+        mostraDomandaCorrente();
+      });
     } else {
-      mostraBottoniVeroFalso(questions[currentQuestionIndex], pagina);
+      // L'utente ha risposto a tutte le 10 domande
+      // Calcolo delle percentuali di risposte giuste, sbagliate e non date
+      const percentualeGiuste = (contatoreGiuste / 10) * 100;
+      const percentualeSbagliate = ((contatoreSbagliate + risposteNonDate) / 10) * 100;
+      console.log("Percentuale risposte giuste: " + percentualeGiuste);
+      console.log("Percentuale risposte sbagliate (inclusi non dati): " + percentualeSbagliate);
+      page2.classList.add('hidden');
+      page3.classList.remove('hidden');
+    }
+  }
+
+  // Funzione per mostrare i pulsanti di risposta per domande di tipo "multiple"
+  function mostraBottoniRisposte(domanda) {
+    const divRisposte = document.createElement("div");
+    const risposte = [domanda.correct_answer, ...domanda.incorrect_answers];
+    risposte.sort(() => Math.random() - 0.5);
+
+    for (let risposta of risposte) {
+      const button = document.createElement("button");
+      button.innerText = risposta;
+      button.classList.add("risposte");
+      divRisposte.appendChild(button);
+
+      // Gestione del click su un pulsante di risposta
+      button.addEventListener("click", function () {
+        // Verifica se la domanda attuale non è stata già risposta
+        if (!countAnswer[domandeMostrate - 1].answered) {
+          gestisciRisposta(risposta, domanda.correct_answer);
+          countAnswer[domandeMostrate - 1].answered = true;
+        }
+      });
     }
 
-    // Creazione di un pulsante "PROSSIMO"
-    const divQuestion = document.getElementById("nextQuestion");
-    const avantiButton = document.createElement("button");
-    avantiButton.innerText = "PROSSIMO";
-    const spanButton = document.createElement("span");
-    spanButton.classList.add("fas", "fa-arrow-right");
-    avantiButton.appendChild(spanButton);
-    divQuestion.appendChild(avantiButton);
-
-    // Gestione del click sul pulsante "PROSSIMO"
-    avantiButton.addEventListener("click", function () {
-      // Verifica se la domanda attuale non è stata già risposta
-      if (!countAnswer[domandeMostrate - 1].answered) {
-        risposteNonDate++;
-      }
-      mostraDomandaCorrente();
-    });
-  } else {
-    // L'utente ha risposto a tutte le 10 domande
-    // Calcolo delle percentuali di risposte giuste, sbagliate e non date
-    const percentualeGiuste = (contatoreGiuste / 10) * 100;
-    const percentualeSbagliate = ((contatoreSbagliate + risposteNonDate) / 10) * 100;
-    console.log("Percentuale risposte giuste: " + percentualeGiuste);
-    console.log("Percentuale risposte sbagliate (inclusi non dati): " + percentualeSbagliate);
-    page2.classList.add('hidden');
-    page3.classList.remove('hidden');
+    pagina.appendChild(divRisposte);
   }
-}
-
-// Funzione per mostrare i pulsanti di risposta per domande di tipo "multiple"
-function mostraBottoniRisposte(domanda, pagina) {
-  const divRisposte = document.createElement("div");
-  const risposte = [domanda.correct_answer, ...domanda.incorrect_answers];
-  risposte.sort(() => Math.random() - 0.5);
-
-  for (let risposta of risposte) {
-    const button = document.createElement("button");
-    button.innerText = risposta;
-    button.classList.add("risposte");
-    divRisposte.appendChild(button);
-
-    // Gestione del click su un pulsante di risposta
-    button.addEventListener("click", function () {
-      // Verifica se la domanda attuale non è stata già risposta
-      if (!countAnswer[domandeMostrate - 1].answered) {
-        gestisciRisposta(risposta, domanda.correct_answer);
-        countAnswer[domandeMostrate - 1].answered = true;
-      }
-    });
-  }
-
-  pagina.appendChild(divRisposte);
-}
-
 
   // Funzione per mostrare i pulsanti "True" e "False" per domande di tipo "true/false"
-  function mostraBottoniVeroFalso(domanda, pagina) {
+  function mostraBottoniVeroFalso(domanda) {
     const divRisposte = document.createElement("div");
     const button1 = creaBottone("True");
     const button2 = creaBottone("False");
@@ -293,35 +311,18 @@ function mostraBottoniRisposte(domanda, pagina) {
     }
   }
 
-// Funzione principale che si attiva quando la pagina è completamente caricata
-document.addEventListener("DOMContentLoaded", function () {
-  const pagina = document.getElementById("domanda"); // Otteniamo l'elemento della domanda
-  const qButton = document.getElementById("nextQuestion"); // Otteniamo il pulsante "PROSSIMO"
-
-  // Array che contiene le risposte corrette per ciascuna domanda
-  const correctAnswer = questions.map((question) => question.correct_answer);
-  let contatoreGiuste = 0; // Contatore delle risposte corrette
-  let contatoreSbagliate = 0; // Contatore delle risposte sbagliate
-
-  
-  const proceedButton = document.querySelector(".proceedButton");
-  
-  proceedButton.addEventListener("click", function () {
-    const checkBox = document.querySelector("#myCheckbox");
-    
-    if (checkBox.checked) {
-      page1.classList.add('hidden')
-      page2.classList.remove('hidden')
-      // Avvia mostrare la prima domanda
-      mostraDomandaCorrente(pagina, qButton)
-    //mostraDomandaCorrente();
-  } else {
-    // Se la casella di controllo non è selezionata,  alert
-    alert("Devi flaggare il checkbox per procedere.");
-  }
+  // Avvia mostrare la prima domanda
+  mostraDomandaCorrente();
 });
-  
-});
+
+
+
+
+
+
+
+
+
 
 
 /****************************************************PAGINA RISULTATO ************************************************************/
@@ -447,7 +448,7 @@ function checkIfStarsSelected() {
 
 /***************************************************************************  TIMER  *************************************************************/
  /// FUNZIONE TIMER
-
+ function startsTimer(){
 var width = 400,
 height = 400,
 timePassed = 0,
@@ -496,11 +497,7 @@ var label = field.append("text")
 .attr("class", "label")
 .attr("dy", ".35em");
 
-field.append('text')
-.text((d)=> 'testsecondi')
-.attr('class','x')
-
-function update() {
+(function update() {
 
 field
   .each(function(d) {
@@ -525,7 +522,7 @@ if (timePassed <= timeLimit)
 else
   destroyTimer();
 
-};
+})();
 
 function pulseText() {
 back.classed("pulse", true);
@@ -546,7 +543,30 @@ label.transition()
   .attr("transform", "translate(0," + -10 + ")");
 }
 
+function destroyTimer() {
+label.transition()
+  .ease("back")
+  .duration(700)
+  .style("opacity", "0")
+  .style("font-size", "5")
+  .attr("transform", "translate(0," + -40 + ")")
+  .each("end", function() {
+    field.selectAll("text").remove()
+  });
 
+path.transition()
+  .ease("back")
+  .duration(700)
+  .attr("d", nilArc);
+
+back.transition()
+  .ease("back")
+  .duration(700)
+  .attr("d", nilArc)
+  .each("end", function() {
+    field.selectAll("path").remove()
+  });
+}
 
 function arcTween(b) {
 var i = d3.interpolate({
@@ -556,33 +576,10 @@ return function(t) {
   return arc(i(t));
 };
 }
- 
+ }
 
 
- function destroyTimer() {
-  label.transition()
-    .ease("back")
-    .duration(700)
-    .style("opacity", "0")
-    .style("font-size", "5")
-    .attr("transform", "translate(0," + -40 + ")")
-    .each("end", function() {
-      field.selectAll("text").remove()
-    });
-  
-  path.transition()
-    .ease("back")
-    .duration(700)
-    .attr("d", nilArc);
-  
-  back.transition()
-    .ease("back")
-    .duration(700)
-    .attr("d", nilArc)
-    .each("end", function() {
-      field.selectAll("path").remove()
-    });
-  }
+
 
 
 
